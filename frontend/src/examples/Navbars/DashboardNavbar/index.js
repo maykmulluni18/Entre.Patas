@@ -197,15 +197,15 @@ function DashboardNavbar({ absolute, light, isMini }) {
               >
                 <Icon>{miniSidenav ? "menu_open" : "menu"}</Icon>
               </IconButton>
-              <IconButton
+              {/* <IconButton
                 size="small"
                 color={light && transparentNavbar ? "white" : "dark"}
                 sx={navbarIconButton}
                 onClick={handleConfiguratorOpen}
               >
                 <Icon>settings</Icon>
-              </IconButton>
-              <IconButton
+              </IconButton> */}
+              {/* <IconButton
                 size="small"
                 color={light && transparentNavbar ? "white" : "dark"}
                 sx={navbarIconButton}
@@ -215,7 +215,7 @@ function DashboardNavbar({ absolute, light, isMini }) {
                 onClick={handleOpenMenu}
               >
                 <Icon>notifications</Icon>
-              </IconButton>
+              </IconButton> */}
               {renderMenu()}
             </ArgonBox>
           </ArgonBox>

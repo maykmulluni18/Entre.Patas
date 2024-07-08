@@ -1,18 +1,3 @@
-/**
-=========================================================
-* Argon Dashboard 2 MUI - v3.0.1
-=========================================================
-
-* Product Page: https://www.creative-tim.com/product/argon-dashboard-material-ui
-* Copyright 2023 Creative Tim (https://www.creative-tim.com)
-
-Coded by 
-
- =========================================================
-
-* The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
-*/
-
 import { useState, useEffect, useMemo } from "react";
 
 // react-router components
@@ -50,17 +35,25 @@ import { useArgonController, setMiniSidenav, setOpenConfigurator } from "context
 // Images
 import brand from "assets/images/logo-ct.png";
 import brandDark from "assets/images/logo-ct-dark.png";
-
+import "primeicons/primeicons.css";
+import { PrimeReactProvider } from "primereact/api";
+import "primeflex/primeflex.css";
+import "primereact/resources/primereact.css";
+import "primereact/resources/themes/lara-light-indigo/theme.css";
+import "./index.css";
 // Icon Fonts
 import "assets/css/nucleo-icons.css";
+import VistaGneral from "views/vistaGeneral/VistaGeneral";
 import "assets/css/nucleo-svg.css";
-import "assets/css/style.css"
-import "assets/css/form.css"
-import "assets/css/grid.css"
-import "assets/css/ie.css"
-import "assets/css/reset.css"
-import "assets/css/slider.css"
-import "assets/css/superfish.css"
+// import "assets/css/style.css";
+import "assets/css/form.css";
+import "assets/css/grid.css";
+import "assets/css/ie.css";
+// import "assets/css/reset.css";
+import "assets/css/slider.css";
+import "assets/css/superfish.css";
+import VerMascota from "views/vistaGeneral/verMascota/VerMacota";
+import VerCuestionarioUsers from "views/vistaGeneral/vistaCuestionarioUsers/VerCuestionarioUsers";
 
 export default function App() {
   const [controller, dispatch] = useArgonController();
@@ -147,53 +140,81 @@ export default function App() {
     </ArgonBox>
   );
 
-  return direction === "rtl" ? (
-    <CacheProvider value={rtlCache}>
-      <ThemeProvider theme={darkMode ? themeDarkRTL : themeRTL}>
-        <CssBaseline />
-        {layout === "dashboard" && (
-          <>
-            <Sidenav
-              color={sidenavColor}
-              brand={darkSidenav || darkMode ? brand : brandDark}
-              brandName="Argon Dashboard 2 PRO"
-              routes={routes}
-              onMouseEnter={handleOnMouseEnter}
-              onMouseLeave={handleOnMouseLeave}
-            />
-            <Configurator />
-            {configsButton}
-          </>
-        )}
-        {layout === "vr" && <Configurator />}
-        <Routes>
-          {getRoutes(routes)}
-          <Route path="*" element={<Navigate to="/dashboard" />} />
-        </Routes>
-      </ThemeProvider>
-    </CacheProvider>
-  ) : (
-    <ThemeProvider theme={darkMode ? themeDark : theme}>
-      <CssBaseline />
-      {layout === "dashboard" && (
-        <>
-          <Sidenav
-            color={sidenavColor}
-            brand={darkSidenav || darkMode ? brand : brandDark}
-            brandName="Argon Dashboard 2 PRO"
-            routes={routes}
-            onMouseEnter={handleOnMouseEnter}
-            onMouseLeave={handleOnMouseLeave}
-          />
-          <Configurator />
-          {configsButton}
-        </>
-      )}
-      {layout === "vr" && <Configurator />}
+  return (
+    <>
       <Routes>
-        {getRoutes(routes)}
-        <Route path="*" element={<Navigate to="/dashboard" />} />
+        <Route path="/vista-general" element={<VistaGneral />} />
+        <Route path="/vista-general/mascota/:id" element={<VerMascota />} />
+        <Route path="/vista-general/mascota/:id/adoptar" element={<VerCuestionarioUsers />} />
+
+        <Route
+          path="*"
+          element={
+            direction === "rtl" ? (
+              <CacheProvider value={rtlCache}>
+                <ThemeProvider theme={darkMode ? themeDarkRTL : themeRTL}>
+                  <CssBaseline />
+                  {layout === "dashboard" && (
+                    <>
+                      <Sidenav
+                        color={sidenavColor}
+                        brand={darkSidenav || darkMode ? brand : brandDark}
+                        brandName="Argon Dashboard 2 PRO"
+                        routes={routes}
+                        onMouseEnter={handleOnMouseEnter}
+                        onMouseLeave={handleOnMouseLeave}
+                      />
+                    </>
+                  )}
+                  <Routes>
+                    {getRoutes(routes)}
+                    <Route path="*" element={<Navigate to="/dashboard" />} />
+                  </Routes>
+                </ThemeProvider>
+              </CacheProvider>
+            ) : sessionStorage.getItem("auth_token") ? (
+              <ThemeProvider theme={darkMode ? themeDark : theme}>
+                <CssBaseline />
+                {layout === "dashboard" && (
+                  <>
+                    <Sidenav
+                      color={sidenavColor}
+                      brand={darkSidenav || darkMode ? brand : brandDark}
+                      brandName="Entre Patas"
+                      routes={routes}
+                      onMouseEnter={handleOnMouseEnter}
+                      onMouseLeave={handleOnMouseLeave}
+                    />
+                  </>
+                )}
+                <Routes>
+                  {getRoutes(routes)}
+                  <Route path="*" element={<Navigate to="/dashboard" />} />
+                </Routes>
+              </ThemeProvider>
+            ) : (
+              <ThemeProvider theme={darkMode ? themeDark : theme}>
+                {layout === "dashboard" && (
+                  <>
+                    <Sidenav
+                      color={sidenavColor}
+                      brand={darkSidenav || darkMode ? brand : brandDark}
+                      brandName="Entre Patas"
+                      routes={routes}
+                      onMouseEnter={handleOnMouseEnter}
+                      onMouseLeave={handleOnMouseLeave}
+                    />
+                  </>
+                )}
+                <Routes>
+                  {getRoutes(routes)}
+                  <Route path="*" element={<Navigate to="/dashboard" />} />
+                </Routes>
+              </ThemeProvider>
+            )
+          }
+        />
       </Routes>
-    </ThemeProvider>
+    </>
   );
 }

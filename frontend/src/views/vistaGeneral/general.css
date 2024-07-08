@@ -1,0 +1,52 @@
+body {
+  background-color: #e3e3e3;
+}
+
+.fullscreen-container {
+  display: flex;
+  flex-direction: column;
+
+}
+
+.p-menubar {
+  background: rgb(31, 31, 31);
+  color: aliceblue;
+}
+
+.p-menubar .p-menubar-root-list>.p-menuitem>.p-menuitem-content .p-menuitem-link .p-menuitem-text {
+  color: rgb(255, 255, 255);
+
+}
+
+.p-menubar .p-menubar-root-list>.p-menuitem>.p-menuitem-content {
+  color: rgb(255, 255, 255);
+}
+
+.galleria-container {
+  height: 50vh;
+  /* Altura deseada */
+  width: 100%;
+}
+
+.viewMascot {
+  /* height: 50vh;
+  width: 100%; */
+  margin: 2%;
+  text-align: center;
+}
+
+.lisdata {
+  text-align: start;
+
+}
+
+.input-style {
+  border: 1px solid black;
+  border-color: black;
+  padding: 10px;
+  color: white;
+}
+
+.input-style:focus {
+  outline: none;
+}

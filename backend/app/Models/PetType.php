@@ -8,7 +8,7 @@ use App\Traits\UUID;
 
 class PetType extends Model
 {
-    use HasFactory;
+    use HasFactory, UUID;
     protected $fillable = [
         'name',
         'low'

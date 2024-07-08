@@ -26,10 +26,10 @@ import ArgonBox from "components/ArgonBox";
 import ArgonTypography from "components/ArgonTypography";
 import ArgonInput from "components/ArgonInput";
 import ArgonButton from "components/ArgonButton";
-
+import axios from "axios";
 // Authentication layout components
 import IllustrationLayout from "layouts/authentication/components/IllustrationLayout";
-
+import { Api_LOGIN } from "config/api";
 // Image
 const bgImage =
   "https://raw.githubusercontent.com/creativetimofficial/public-assets/master/argon-dashboard-pro/assets/img/signin-ill.jpg";
@@ -39,10 +39,27 @@ function Illustration() {
 
   const handleSetRememberMe = () => setRememberMe(!rememberMe);
 
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+
+  const handleSubmit = async (event) => {
+    event.preventDefault();
+
+    try {
+      const response = await axios.post(Api_LOGIN, {
+        email: email,
+        password: password,
+      });
+      console.log(response.data); // Maneja la respuesta según lo necesites, por ejemplo, almacenando el token de autenticación en el estado
+    } catch (error) {
+      console.error("Error al iniciar sesión:", error); // Muestra el mensaje de error devuelto por la API
+    }
+  };
+
   return (
     <IllustrationLayout
-      title="Sign In"
-      description="Enter your email and password to sign in"
+      title="Iniciar Session"
+      description="Ingrese su correo y contraseña"
       illustration={{
         image: bgImage,
         title: '"Attention is the new currency"',
@@ -50,14 +67,26 @@ function Illustration() {
           "The more effortless the writing looks, the more effort the writer actually put into the process.",
       }}
     >
-      <ArgonBox component="form" role="form">
+      <ArgonBox component="form" role="form" onSubmit={handleSubmit}>
         <ArgonBox mb={2}>
-          <ArgonInput type="email" placeholder="Email" size="large" />
+          <ArgonInput
+            type="email"
+            placeholder="Email"
+            size="large"
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
+          />
         </ArgonBox>
         <ArgonBox mb={2}>
-          <ArgonInput type="password" placeholder="Password" size="large" />
+          <ArgonInput
+            type="password"
+            placeholder="Contraseña"
+            size="large"
+            value={password}
+            onChange={(e) => setPassword(e.target.value)}
+          />
         </ArgonBox>
-        <ArgonBox display="flex" alignItems="center">
+        {/* <ArgonBox display="flex" alignItems="center">
           <Switch checked={rememberMe} onChange={handleSetRememberMe} />
           <ArgonTypography
             variant="button"
@@ -67,23 +96,23 @@ function Illustration() {
           >
             &nbsp;&nbsp;Remember me
           </ArgonTypography>
-        </ArgonBox>
+        </ArgonBox> */}
         <ArgonBox mt={4} mb={1}>
-          <ArgonButton color="info" size="large" fullWidth>
-            Sign In
+          <ArgonButton color="info" size="large" type="submit" fullWidth>
+            Iniciar Session
           </ArgonButton>
         </ArgonBox>
         <ArgonBox mt={3} textAlign="center">
           <ArgonTypography variant="button" color="text" fontWeight="regular">
-            Don&apos;t have an account?{" "}
+            {/* //Registrarse aqui?{" "} */}
             <ArgonTypography
               component={Link}
-              to="/authentication/sign-up"
+              // to="/authentication/sign-up"
               variant="button"
               color="info"
               fontWeight="medium"
             >
-              Sign up
+              {/* Iniciar Session */}
             </ArgonTypography>
           </ArgonTypography>
         </ArgonBox>

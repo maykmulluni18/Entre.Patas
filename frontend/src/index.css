@@ -1,0 +1,54 @@
+/* styles.css */
+html,
+body,
+#root {
+    height: 100%;
+    margin: 0;
+}
+
+
+a[href^="tel:"] {
+    color: inherit;
+    text-decoration: none;
+}
+
+a {
+    text-decoration: none;
+    color: inherit;
+    outline: none;
+    transition: 0.5s ease;
+    -o-transition: 0.5s ease;
+    -webkit-transition: 0.5s ease;
+}
+
+/**to top**/
+#toTop {
+    display: none;
+    text-decoration: none;
+    position: fixed;
+    bottom: 30px;
+    overflow: hidden;
+    width: 39px;
+    height: 36px;
+    border: none;
+    text-indent: -999px;
+    z-index: 999;
+    /* background:url(../images/totop.png) no-repeat left top; */
+    transition: 0s ease;
+    -webkit-transition: 0s ease;
+    -o-transition: 0s ease;
+}
+.css-96uzu9 {
+
+}
+.css-96uzu9 {
+    height: 300px;
+    width: 100vw;
+    position: absolute;
+    top: 0;
+    left: 0;
+    opacity: 1;
+    background: #288598;
+    color: #344767;
+    border-radius: none;
+}

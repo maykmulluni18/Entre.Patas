@@ -1,0 +1,470 @@
+  <div className="formgrid grid">
+              <div className="field col-12 md:col-12">
+                <div
+                  style={{
+                    display: "flex",
+                    flexDirection: "column",
+                    alignItems: "flex-start",
+                    flex: 1,
+                  }}
+                >
+                  <br />
+
+                  <label className="text-start" style={{ textAlign: "end", fontWeight: "bold" }}>
+                    1: {pregunta1}
+                  </label>
+                  <div className="flex align-items-center" style={{ marginLeft: "30px" }}>
+                    <RadioButton
+                      inputId="ingredient1"
+                      name="pizza"
+                      value={pregunta1A}
+                      onChange={(e) => setPregunta1A(e.target.value)}
+                      //onChange={(e) => setIngredient(e.value)}
+                      //checked={ingredient === "Cheese"}
+                    />
+                    <label htmlFor="ingredient1" className="ml-2">
+                      a) Quiero compañía y afecto.{" "}
+                    </label>
+                  </div>
+                  <br />
+                  <div className="flex align-items-center" style={{ marginLeft: "30px" }}>
+                    <RadioButton
+                      value={pregunta1B}
+                      onChange={(e) => setPregunta1B(e.target.value)}
+                      //onChange={(e) => setIngredient(e.value)}
+                      //checked={ingredient === "Cheese"}
+                    />
+                    <label htmlFor="ingredient1" className="ml-2">
+                      b) Para enseñar responsabilidad a mis hijos.{" "}
+                    </label>
+                  </div>
+                  <br />
+                  <div className="flex align-items-center" style={{ marginLeft: "30px" }}>
+                    <RadioButton
+                      value={pregunta1C}
+                      onChange={(e) => setPregunta1C(e.target.value)}
+                      //onChange={(e) => setIngredient(e.value)}
+                      //checked={ingredient === "Cheese"}
+                    />
+                    <label htmlFor="ingredient1" className="ml-2">
+                      c) Para tener un compañero de ejercicio.{" "}
+                    </label>
+                  </div>
+                </div>
+              </div>
+              {/* 2 */}
+              <div className="field col-12 md:col-12">
+                <div
+                  style={{
+                    display: "flex",
+                    flexDirection: "column",
+                    alignItems: "flex-start",
+                    flex: 1,
+                  }}
+                >
+                  <label className="text-start" style={{ textAlign: "end", fontWeight: "bold" }}>
+                    2: {pregunta2}
+                  </label>
+                  <div className="flex align-items-center" style={{ marginLeft: "30px" }}>
+                    <RadioButton
+                      value={pregunta2A}
+                      onChange={(e) => setPregunta2A(e.target.value)}
+                   
+                    />
+                    <label htmlFor="ingredient1" className="ml-2">
+                    a) Sí, he tenido mascotas antes.                    </label>
+                  </div>
+                  <br />
+                  <div className="flex align-items-center" style={{ marginLeft: "30px" }}>
+                    <RadioButton
+                      value={pregunta2B}
+                      onChange={(e) => setPregunta2B(e.target.value)}
+                      
+                    />
+                    <label htmlFor="ingredient1" className="ml-2">
+                    b) No, esta sería mi primera mascota.                    </label>
+                  </div>
+                  <br />
+                  <div className="flex align-items-center" style={{ marginLeft: "30px" }}>
+                    <RadioButton
+                      value={pregunta2C}
+                      onChange={(e) => setPregunta2C(e.target.value)}
+                      
+                    />
+                    <label htmlFor="ingredient1" className="ml-2">
+                    c) He cuidado mascotas de amigos o familiares.                    </label>
+                  </div>
+                </div>
+              </div>
+
+              {/* 3 */}
+              <div className="field col-12 md:col-12">
+                <div
+                  style={{
+                    display: "flex",
+                    flexDirection: "column",
+                    alignItems: "flex-start",
+                    flex: 1,
+                  }}
+                >
+                  <label className="text-start" style={{ textAlign: "end", fontWeight: "bold" }}>
+                    3: {pregunta3}
+                  </label>
+                  <div className="flex align-items-center" style={{ marginLeft: "30px" }}>
+                    <RadioButton
+                     
+                      value={pregunta3A}
+                      onChange={(e) => setPregunta3A(e.target.value)}
+                     
+                    />
+                    <label htmlFor="ingredient1" className="ml-2">
+                    a) Perro, son leales y activos.                    </label>
+                  </div>
+                  <br />
+                  <div className="flex align-items-center" style={{ marginLeft: "30px" }}>
+                    <RadioButton
+                      value={pregunta3B}
+                      onChange={(e) => setPregunta3B(e.target.value)}
+                     
+                    />
+                    <label htmlFor="ingredient1" className="ml-2">
+                    b) Gato, son independientes y tranquilos.                    </label>
+                  </div>
+                  <br />
+                  <div className="flex align-items-center" style={{ marginLeft: "30px" }}>
+                    <RadioButton
+                      value={pregunta3C}
+                      onChange={(e) => setPregunta3C(e.target.value)}
+                     
+                    />
+                    <label htmlFor="ingredient1" className="ml-2">
+                  ) Otro, tengo preferencias específicas por otras especies.                    </label>
+                  </div>
+                </div>
+              </div>
+
+              {/* 4 */}
+              <div className="field col-12 md:col-12">
+                <div
+                  style={{
+                    display: "flex",
+                    flexDirection: "column",
+                    alignItems: "flex-start",
+                    flex: 1,
+                  }}
+                >
+                  <label className="text-start" style={{ textAlign: "end", fontWeight: "bold" }}>
+                    4: {pregunta4}
+                  </label>
+
+                  <div className="flex align-items-center" style={{ marginLeft: "30px" }}>
+                    <RadioButton
+                      inputId="ingredient1"
+                      name="pizza"
+                      value={pregunta4A}
+                      onChange={(e) => setPregunta4A(e.target.value)}
+                   
+                    />
+                    <label htmlFor="ingredient1" className="ml-2">
+                    a) Menos de 1 hora.                    </label>
+                  </div>
+                  <br />
+                  <div className="flex align-items-center" style={{ marginLeft: "30px" }}>
+                    <RadioButton
+                      value={pregunta4B}
+                      onChange={(e) => setPregunta4B(e.target.value)}
+                     
+                    />
+                    <label htmlFor="ingredient1" className="ml-2">
+                    b) Entre 1 y 3 horas.                    </label>
+                  </div>
+                  <br />
+                  <div className="flex align-items-center" style={{ marginLeft: "30px" }}>
+                    <RadioButton
+                      value={pregunta4C}
+                      onChange={(e) => setPregunta4C(e.target.value)}
+                     
+                    />
+                    <label htmlFor="ingredient1" className="ml-2">
+                    c) Más de 3 horas.                    </label>
+                  </div>
+                </div>
+              </div>
+              {/*  */}
+              <div className="field col-12 md:col-12">
+                <div
+                  style={{
+                    display: "flex",
+                    flexDirection: "column",
+                    alignItems: "flex-start",
+                    flex: 1,
+                  }}
+                >
+                  <label className="text-start" style={{ textAlign: "end", fontWeight: "bold" }}>
+                    5: {pregunta5}
+                  </label>
+                  <div className="flex align-items-center" style={{ marginLeft: "30px" }}>
+                    <RadioButton
+                      
+                      value={pregunta5A}
+                      onChange={(e) => setPregunta5A(e.target.value)}
+                      
+                    />
+                    <label htmlFor="ingredient1" className="ml-2">
+                    a) Casa con jardín.                    </label>
+                  </div>
+                  <br />
+                  <div className="flex align-items-center" style={{ marginLeft: "30px" }}>
+                    <RadioButton
+                      value={pregunta5B}
+                      onChange={(e) => setPregunta5B(e.target.value)}
+                     
+                    />
+                    <label htmlFor="ingredient1" className="ml-2">
+                    b) Apartamento pequeño.                    </label>
+                  </div>
+                  <br />
+                  <div className="flex align-items-center" style={{ marginLeft: "30px" }}>
+                    <RadioButton
+                      value={pregunta5C}
+                      onChange={(e) => setPregunta5C(e.target.value)}
+                      
+                    />
+                    <label htmlFor="ingredient1" className="ml-2">
+                    c) Otro tipo de vivienda                     </label>
+                  </div>
+                </div>
+              </div>
+              {/* 6 */}
+              <div className="field col-12 md:col-12">
+                <div
+                  style={{
+                    display: "flex",
+                    flexDirection: "column",
+                    alignItems: "flex-start",
+                    flex: 1,
+                  }}
+                >
+                  <label className="text-start" style={{ textAlign: "end", fontWeight: "bold" }}>
+                    6: {pregunta6}
+                  </label>
+                  <div className="flex align-items-center" style={{ marginLeft: "30px" }}>
+                    <RadioButton
+                     
+                      value={pregunta6A}
+                      onChange={(e) => setPregunta6A(e.target.value)}
+                     
+                    />
+                    <label htmlFor="ingredient1" className="ml-2">
+                    a) Paseos diarios y visitas al parque.                    </label>
+                  </div>
+                  <br />
+                  <div className="flex align-items-center" style={{ marginLeft: "30px" }}>
+                    <RadioButton
+                      value={pregunta6B}
+                      onChange={(e) => setPregunta6B(e.target.value)}
+                     
+                    />
+                    <label htmlFor="ingredient1" className="ml-2">
+                    b) Juegos en casa y citas con otros dueños de mascotas.                    </label>
+                  </div>
+                  <br />
+                  <div className="flex align-items-center" style={{ marginLeft: "30px" }}>
+                    <RadioButton
+                      value={pregunta6C}
+                      onChange={(e) => setPregunta6C(e.target.value)}
+                    
+                    />
+                    <label htmlFor="ingredient1" className="ml-2">
+                      c) Otra actividad específica .{" "}
+                    </label>
+                  </div>
+                </div>
+              </div>
+              {/* 7 */}
+              <div className="field col-12 md:col-12">
+                <div
+                  style={{
+                    display: "flex",
+                    flexDirection: "column",
+                    alignItems: "flex-start",
+                    flex: 1,
+                  }}
+                >
+                  <label className="text-start" style={{ textAlign: "end", fontWeight: "bold" }}>
+                    7: {pregunta7}
+                  </label>
+                  <div className="flex align-items-center" style={{ marginLeft: "30px" }}>
+                    <RadioButton
+                   
+                      value={pregunta7A}
+                      onChange={(e) => setPregunta7A(e.target.value)}
+                    />
+                    <label htmlFor="ingredient1" className="ml-2">
+                      a) Sí, estoy preparado/a para asumir esos gastos.{" "}
+                    </label>
+                  </div>
+                  <br />
+                  <div className="flex align-items-center" style={{ marginLeft: "30px" }}>
+                    <RadioButton
+                      value={pregunta7B}
+                      onChange={(e) => setPregunta7B(e.target.value)}
+                    />
+                    <label htmlFor="ingredient1" className="ml-2">
+                      b) Dependerá del costo de los cuidados médicos.{" "}
+                    </label>
+                  </div>
+                  <br />
+                  <div className="flex align-items-center" style={{ marginLeft: "30px" }}>
+                    <RadioButton
+                      value={pregunta7C}
+                      onChange={(e) => setPregunta7C(e.target.value)}
+                    />
+                    <label htmlFor="ingredient1" className="ml-2">
+                      c) No estoy seguro/a de poder costear esos gastos.{" "}
+                    </label>
+                  </div>
+                </div>
+              </div>
+              {/* 8 */}
+              <div className="field col-12 md:col-12">
+                <div
+                  style={{
+                    display: "flex",
+                    flexDirection: "column",
+                    alignItems: "flex-start",
+                    flex: 1,
+                  }}
+                >
+                  <label className="text-start" style={{ textAlign: "end", fontWeight: "bold" }}>
+                    8: {pregunta8}
+                  </label>
+                  <div className="flex align-items-center" style={{ marginLeft: "30px" }}>
+                    <RadioButton
+                  
+                      value={pregunta8A}
+                      onChange={(e) => setPregunta8A(e.target.value)}
+                    />
+                    <label htmlFor="ingredient1" className="ml-2">
+                      a) Sí, creo que se llevarán bien.{" "}
+                    </label>
+                  </div>
+                  <br />
+                  <div className="flex align-items-center" style={{ marginLeft: "30px" }}>
+                    <RadioButton
+                      value={pregunta8B}
+                      onChange={(e) => setPregunta8B(e.target.value)}
+                    />
+                    <label htmlFor="ingredient1" className="ml-2">
+                      b) No, no tengo niños en casa.{" "}
+                    </label>
+                  </div>
+                  <br />
+                  <div className="flex align-items-center" style={{ marginLeft: "30px" }}>
+                    <RadioButton
+                      value={pregunta8C}
+                      onChange={(e) => setPregunta8C(e.target.value)}
+                    />
+                    <label htmlFor="ingredient1" className="ml-2">
+                      c) No estoy seguro/a de cómo reaccionarán.{" "}
+                    </label>
+                  </div>
+                </div>
+              </div>
+              {/* 9 */}
+              <div className="field col-12 md:col-12">
+                <div
+                  style={{
+                    display: "flex",
+                    flexDirection: "column",
+                    alignItems: "flex-start",
+                    flex: 1,
+                  }}
+                >
+                  <label className="text-start" style={{ textAlign: "end", fontWeight: "bold" }}>
+                    9: {pregunta9}
+                  </label>
+                  <div className="flex align-items-center" style={{ marginLeft: "30px" }}>
+                    <RadioButton
+                      value={pregunta9A}
+                      onChange={(e) => setPregunta9A(e.target.value)}
+                    />
+                    <label htmlFor="ingredient1" className="ml-2">
+                      a) Buscaría ayuda profesional de un entrenador de mascotas.{" "}
+                    </label>
+                  </div>
+                  <br />
+                  <div className="flex align-items-center" style={{ marginLeft: "30px" }}>
+                    <RadioButton
+                      value={pregunta9B}
+                      onChange={(e) => setPregunta9B(e.target.value)}
+                    />
+                    <label htmlFor="ingredient1" className="ml-2">
+                      b) Intentaría corregirlo por mi cuenta.{" "}
+                    </label>
+                  </div>
+                  <br />
+                  <div className="flex align-items-center" style={{ marginLeft: "30px" }}>
+                    <RadioButton
+                      value={pregunta9C}
+                      onChange={(e) => setPregunta9C(e.target.value)}
+                    />
+                    <label htmlFor="ingredient1" className="ml-2">
+                      c) No estoy seguro/a de cómo manejaría esa situación.{" "}
+                    </label>
+                  </div>
+                </div>
+              </div>
+              {/* 10 */}
+              <div className="field col-12 md:col-12">
+                <div
+                  style={{
+                    display: "flex",
+                    flexDirection: "column",
+                    alignItems: "flex-start",
+                    flex: 1,
+                  }}
+                >
+                  <label className="text-start" style={{ textAlign: "end", fontWeight: "bold" }}>
+                    10: {pregunta10}
+                  </label>
+                  <div className="flex align-items-center" style={{ marginLeft: "30px" }}>
+                    <RadioButton
+                      inputId="ingredient1"
+                      name="pizza"
+                      value={pregunta10A}
+                      onChange={(e) => setPregunta10A(e.target.value)}
+                      //onChange={(e) => setIngredient(e.value)}
+                      //checked={ingredient === "Cheese"}
+                    />
+                    <label htmlFor="ingredient1" className="ml-2">
+                      a) Quiero establecer un vínculo cercano y duradero.{" "}
+                    </label>
+                  </div>
+                  <br />
+                  <div className="flex align-items-center" style={{ marginLeft: "30px" }}>
+                    <RadioButton
+                      value={pregunta10B}
+                      onChange={(e) => setPregunta10B(e.target.value)}
+                      //onChange={(e) => setIngredient(e.value)}
+                      //checked={ingredient === "Cheese"}
+                    />
+                    <label htmlFor="ingredient1" className="ml-2">
+                      b) Busco una compañía ocasional.{" "}
+                    </label>
+                  </div>
+                  <br />
+                  <div className="flex align-items-center" style={{ marginLeft: "30px" }}>
+                    <RadioButton
+                      value={pregunta10C}
+                      onChange={(e) => setPregunta10C(e.target.value)}
+                      //onChange={(e) => setIngredient(e.value)}
+                      //checked={ingredient === "Cheese"}
+                    />
+                    <label htmlFor="ingredient1" className="ml-2">
+                      c) No tengo expectativas claras.{" "}
+                    </label>
+                  </div>
+                </div>
+              </div>
+            </div>

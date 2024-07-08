@@ -4,10 +4,11 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use App\Traits\UUID;
 
 class UserAdoptionSponsorship extends Model
 {
-    use HasFactory;
+    use HasFactory, UUID;
     protected $fillable = [
         'name',
         'fullname',
@@ -15,6 +16,9 @@ class UserAdoptionSponsorship extends Model
         'phone',
         'direction',
         'low'
-
     ];
+    public function adoptionAnswer()
+    {
+        return $this->hasMany(AdoptionAnswer::class);
+    }
 }

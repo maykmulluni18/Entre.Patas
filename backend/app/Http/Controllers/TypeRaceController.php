@@ -8,11 +8,12 @@ use App\Models\TypeRace; // Asegúrate de importar el modelo correspondiente
 class TypeRaceController extends Controller
 {
     // Obtener todos los registros
+    //
     public function index()
     {
         try {
-            $typeRaces = TypeRace::all();
-            return response()->json(['data' => $typeRaces], 200);
+            $TypeRace = TypeRace::all();
+            return response()->json(['data' => $TypeRace], 200);
         } catch (\Exception $e) {
             return response()->json(['message' => $e->getMessage()], 500);
         }
@@ -23,13 +24,13 @@ class TypeRaceController extends Controller
     {
         $request->validate([
             'name' => 'required',
+            // 'low' //estado
             // Agrega más reglas de validación según sea necesario
         ]);
-        try {
-            // Aquí puedes validar y guardar los datos del request
-            $typeRace = TypeRace::create($request->all());
 
-            return response()->json(['message' => 'Tipo de raza creado con exito', 'tipo_raza' => $typeRace], 201);
+        try {
+            $typePet = TypeRace::create($request->all());
+            return response()->json(['message' => 'Created successfully', 'tipo de mascota' => $typePet], 201);
         } catch (\Exception $e) {
             return response()->json(['message' => $e->getMessage()], 500);
         }
@@ -38,28 +39,44 @@ class TypeRaceController extends Controller
     // Actualizar un registro existente
     public function update(Request $request, $id)
     {
-        try {
-            // Encuentra el TypeRace por su ID
-            $typeRace = TypeRace::findOrFail($id);
-            // Lógica para actualizar el registro con los datos del request
-            $typeRace->update($request->all());
+        $request->validate([
+            'name' => 'required',
+            //'low' //estado
+            // Agrega más reglas de validación según sea necesario
+        ]);
 
-            return response()->json(['message' => 'TypeRace updated successfully'], 200);
+        try {
+
+            $typePet = TypeRace::findOrFail($id);
+            $typePet->update($request->all());
+            return response()->json(['message' => 'Updated successfully', 'tipo de mascota' => $typePet], 201);
+
         } catch (\Exception $e) {
             return response()->json(['message' => $e->getMessage()], 500);
         }
     }
 
+
+    // get
+
+    public function show($id)
+    {
+        try {
+            $typePet = TypeRace::findOrFail($id);
+            return response()->json(['data' => $typePet], 200);
+        } catch (\Exception $e) {
+            return response()->json(['message' => $e->getMessage()], 500);
+        }
+    }
+
+
     // Deshabilitar un registro
     public function disable($id)
     {
         try {
-            // Encuentra el TypeRace por su ID
-            $typeRace = TypeRace::findOrFail($id);
-            // Lógica para deshabilitar el registro (cambiar un estado por ejemplo)
-            $typeRace->disable();
-            
-            return response()->json(['message' => 'TypeRace disabled successfully'], 200);
+            $typePet = TypeRace::findOrFail($id);
+            $typePet->update(['low' => 0]); // Asume que "low" es el campo de estado
+            return response()->json(['message' => 'Disabled successfully'], 200);
         } catch (\Exception $e) {
             return response()->json(['message' => $e->getMessage()], 500);
         }
@@ -69,12 +86,19 @@ class TypeRaceController extends Controller
     public function enable($id)
     {
         try {
-            // Encuentra el TypeRace por su ID
-            $typeRace = TypeRace::findOrFail($id);
-            // Lógica para habilitar el registro (cambiar un estado por ejemplo)
-            $typeRace->enable();
-            
-            return response()->json(['message' => 'TypeRace enabled successfully'], 200);
+            $typePet = TypeRace::findOrFail($id);
+            $typePet->update(['low' => 1]); // Asume que "low" es el campo de estado
+            return response()->json(['message' => 'Enabled successfully'], 200);
+        } catch (\Exception $e) {
+            return response()->json(['message' => $e->getMessage()], 500);
+        }
+    }
+
+    public function listEnableTypeRace()
+    {
+        try {
+            $typeRace = TypeRace::where('low', 1)->get();
+            return response()->json(['data' => $typeRace], 200);
         } catch (\Exception $e) {
             return response()->json(['message' => $e->getMessage()], 500);
         }

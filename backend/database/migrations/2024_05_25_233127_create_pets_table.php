@@ -20,6 +20,8 @@ return new class extends Migration
             $table->string('imagen')->nullable();
             $table->text('description')->nullable();
             $table->date('date_end')->nullable();
+            $table->string('tamanio')->nullable();
+            $table->string('peso')->nullable();
             $table->boolean('sterilized')->default(false);
             $table->boolean('vaccination')->default(false);
             $table->string('state');
@@ -33,8 +35,8 @@ return new class extends Migration
             $table->foreign('type_race_id')->references('id')->on('type_races')
             ->onDelete('set null');
 
-            $table->boolean('low')->default(1); 
-            
+            $table->boolean('low')->default(1);
+
             $table->timestamps();
         });
     }

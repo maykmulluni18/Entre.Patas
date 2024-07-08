@@ -1,216 +1,457 @@
-import React, { useEffect, useState } from "react"
+import React, { useEffect, useState } from "react";
+import { Galleria } from "primereact/galleria";
+import { ServicioImagen } from "./ServicioImagen";
+import { Button } from "primereact/button";
+import { DataView, DataViewLayoutOptions } from "primereact/dataview";
+import { Rating } from "primereact/rating";
+import { Tag } from "primereact/tag";
+import { Card } from "primereact/card";
+import { Link } from "react-router-dom";
+import { Checkbox } from "primereact/checkbox";
+import { classNames } from "primereact/utils";
+import NavbarGeneral from "./NavbarGeneral";
 
+import { listEnableApiMascota } from "config/api";
 
+import "./general.css";
+import axios from "axios";
 
-function  VistaGneral () {
-    const [name, setName] = useState('');
+function VistaGeneral() {
+  const [images, setImages] = useState(null);
+  const [listaMascotas, setListaMascotas] = useState([]);
 
-    useEffect(() =>{
-        setName('Gato');
-    },[])
-        let u = 0;
+  const [petNames, setPetNames] = useState([]);
+  const [petRace, setPetRace] = useState([]);
+  const [petAge, setPetAges] = useState([]);
+  const [petTamanio, setPetTamanio] = useState([]);
+  const [petSexo, setPetSexo] = useState([]);
+  const [petPeso, setPetPeso] = useState([]);
 
-    const cambio = () =>{
-        let b = 1;
-        setName(b + 1);
+  const [tipoMascota, setTipoMascota] = useState("");
+  const [tipoRaza, setTipoRaza] = useState("");
+  const [edad, setEdad] = useState("");
+  const [sexo, setSexo] = useState("");
+  const [color, setColor] = useState("");
+
+  const responsiveOptions = [
+    {
+      numVisible: 4,
+    },
+    {
+      numVisible: 3,
+    },
+    {
+      breakpoint: "575px",
+      numVisible: 1,
+    },
+  ];
+
+  useEffect(() => {
+    ServicioImagen.getImages().then((data) => setImages(data));
+  }, []);
+
+  const itemTemplate = (item) => {
+    return (
+      <img src={item.itemImageSrc} alt={item.alt} style={{ maxWidth: "100%", maxHeight: "100%" }} />
+    );
+  };
+
+  const thumbnailTemplate = (item) => {
+    return (
+      <img
+        src={item.thumbnailImageSrc}
+        alt={item.alt}
+        style={{ maxWidth: "100%", maxHeight: "100%" }}
+      />
+    );
+  };
+
+  const caption = (item) => {
+    return (
+      <React.Fragment>
+        <div className="text-xl mb-2 font-bold text-center">{item.title}</div>
+        <p className="text-white text-center">{item.alt}</p>
+      </React.Fragment>
+    );
+  };
+
+  /// Traer lista de Mascotas
+
+  async function listMascotas() {
+    console.log(listEnableApiMascota);
+    try {
+      const response = await axios.get(listEnableApiMascota);
+      if (response.status === 200) {
+        console.log(response.data.data);
+        setListaMascotas(response.data.data);
+        const names = [...new Set(response.data.data.map((item) => item.pet_type.name))];
+        setPetNames(names);
+
+        const namesRace = [...new Set(response.data.data.map((item) => item.type_race.name))];
+        setPetRace(namesRace);
+
+        const namesAge = [...new Set(response.data.data.map((item) => item.age))];
+        setPetAges(namesAge);
+        console.log(petAge);
+        const namesTamanio = [...new Set(response.data.data.map((item) => item.tamanio))];
+        setPetTamanio(namesTamanio);
+        const namesPeso = [...new Set(response.data.data.map((item) => item.peso))];
+        setPetPeso(namesPeso);
+        const namesSexo = [...new Set(response.data.data.map((item) => item.sex))];
+        setPetSexo(namesSexo);
+      }
+    } catch (error) {
+      console.error("Error:", error);
     }
-    // function cambio(){
+  }
 
-    // }
-    return(
-  <>
-    <header>
-        <div className="container_12">
-            <div className="grid_12">
-                <h1><a href="index.html"><img src="images/logo.png" alt=""/></a></h1>
-                <div className="menu_block">
-                    <nav>
-                        <ul className="sf-menu">
-                            <li className="current"><a href="index.html">Home</a></li>
-                            <li className="with_ul"><a href="about-us.html">About Us</a>
-                                <ul>
-                                    <li><a href="#">Testimonials</a></li>
-                                    <li><a href="#">Archive</a></li>
-                                </ul>
-                            </li>
-                            <li><a href="services.html">Services</a></li>
-                            <li><a href="blog.html">Blog</a></li>
-                            <li><a href="contacts.html">Contacts</a></li>
-                        </ul>
-                    </nav>
-                    <div className="clear"></div>
-                </div>
-                <div className="clear"></div>
+  //
+  const [layout, setLayout] = useState("grid");
+
+  // useEffect(() => {
+  //   listaMascotaservice.getlistaMascotas().then((data) => setlistaMascotas(data.slice(0, 12)));
+  // }, []);
+
+  const getSeverity = (product) => {
+    switch (product.inventoryStatus) {
+      case "INSTOCK":
+        return "success";
+
+      case "LOWSTOCK":
+        return "warning";
+
+      case "OUTOFSTOCK":
+        return "danger";
+
+      default:
+        return null;
+    }
+  };
+
+  const listItem = (product, index) => {
+    return (
+      <div className="col-12" key={product.id}>
+        <div
+          className={classNames("flex flex-column xl:flex-row xl:align-items-start p-4 gap-4", {
+            "border-top-1 surface-border": index !== 0,
+          })}
+        >
+          <img
+            className="block xl:block mx-auto border-round"
+            src={product.imagen_url}
+            style={{ width: "260px", height: "250px" }}
+            //alt={}
+          />
+          <div className="flex flex-column sm:flex-row justify-content-between align-items-center xl:align-items-start flex-1 gap-4">
+            <div className="flex flex-column align-items-center sm:align-items-start gap-3">
+              <div className="text-2xl font-bold text-900">{product.name}</div>
+              <div className="text-2xl ">{product.description}</div>
+
+              {/* <Rating value={product.rating} readOnly cancel={false}></Rating> */}
+              <div className="flex align-items-center gap-3">
+                <span className="flex align-items-center gap-2">
+                  {/* <span className="font-semibold">{product.category}</span> */}
+                </span>
+                {/* <Tag value={product.inventoryStatus} severity={getSeverity(product)}></Tag> */}
+              </div>
             </div>
-        </div>
-    </header>
-    <div className="top_block">
-        <div className="slider-relative">
-            <div className="slider-block">
-                <div className="slider">
-                    <ul className="items">
-                        <li><img src="images/slide.jpg" alt=""/>
-                            <div className="banner">They Need Your <span>Love</span> and <i>Care</i>
-                                <p>It is so easy to make them happy</p>
-                            </div>
-                        </li>
-                        <li><img src="images/slide1.jpg" alt=""/>
-                            <div className="banner">They Need Your <span>Love</span> and <i>Care</i>
-                                <p>It is so easy to make them happy</p>
-                            </div>
-                        </li>
-                        <li><img src="images/slide2.jpg" alt=""/>
-                            <div className="banner">They Need Your <span>Love</span> and <i>Care</i>
-                                <p>It is so easy to make them happy</p>
-                            </div>
-                        </li>
-                        <li><img src="images/slide3.jpg" alt=""/>
-                            <div className="banner">They Need Your <span>Love</span> and <i>Care</i>
-                                <p>It is so easy to make them happy</p>
-                            </div>
-                        </li>
-                    </ul>
-                </div>
+            <div className="flex sm:flex-column align-items-center sm:align-items-end gap-3 sm:gap-2">
+              <Button
+                icon=""
+                className=""
+                label="Mas Detalles"
+                //disabled={product.inventoryStatus === "OUTOFSTOCK"}
+              ></Button>
             </div>
+          </div>
         </div>
+      </div>
+    );
+  };
+
+  const gridItem = (product) => {
+    return (
+      <div className="col-12 sm:col-6 lg:col-12 xl:col-4 p-2" key={product.id}>
+        <div className="p-4 border-1 surface-border surface-card border-round">
+          <div className="flex flex-wrap align-items-center justify-content-between gap-2">
+            <div className="flex align-items-center gap-2">
+              {/* <span className="font-semibold">{product.category}</span> */}
+            </div>
+            {/* <Tag value={product.inventoryStatus} severity={getSeverity(product)}></Tag> */}
+          </div>
+          <div className="flex flex-column align-items-center gap-3 py-5">
+            <img
+              className="w-9 shadow-2 border-round"
+              src={product.imagen_url}
+              alt={product.name}
+              style={{ width: "200px", height: "250px" }}
+            />
+            <div className="text-2xl font-bold">{product.name}</div>
+            <div className="text-2xl ">{product.description}</div>
+
+            {/* <Rating value={product.rating} readOnly cancel={false}></Rating> */}
+          </div>
+          <div className="flex align-items-center justify-content-between">
+            <span className="text-2xl font-semibold"></span>
+            <Link to={`/vista-general/mascota/${product.id}`}>
+              <Button
+                icon=""
+                className=""
+                label="Mas Detalles"
+                //disabled={product.inventoryStatus === "OUTOFSTOCK"}
+              ></Button>
+            </Link>
+          </div>
+        </div>
+      </div>
+    );
+  };
+
+  const itemTemplate1 = (product, layout, index) => {
+    if (!product) {
+      return;
+    }
+
+    if (layout === "list") return listItem(product, index);
+    else if (layout === "grid") return gridItem(product);
+  };
+
+  // const listTemplate = (listaMascotas, layout) => {
+  //   return (
+  //     <div className="grid grid-nogutter">
+  //       {listaMascotas.map((product, index) => itemTemplate1(product, layout, index))}
+  //     </div>
+  //   );
+  // };
+
+  // const header = () => {
+  //   return (
+  //     <div className="flex justify-content-end">
+  //       <DataViewLayoutOptions layout={layout} onChange={(e) => setLayout(e.value)} />
+  //     </div>
+  //   );
+  // };
+
+  const [selectedTipoMascota, setSelectedTipoMascota] = useState([]);
+  const [selectedTipoRaza, setSelectedTipoRaza] = useState([]);
+  const [selectedEdad, setSelectedEdad] = useState([]);
+
+  const [selectedSexo, setSelectedSexo] = useState([]);
+  const [selectedPeso, setSelectedPeso] = useState([]);
+  const [selectedTamanio, setSelectedTamanio] = useState([]);
+
+  useEffect(() => {
+    listMascotas();
+  }, [
+    selectedTipoMascota,
+    selectedTipoRaza,
+    selectedEdad,
+    selectedSexo,
+    selectedPeso,
+    selectedTamanio,
+  ]);
+
+  const handleFilterChange = (setSelectedState) => (e) => {
+    const { value } = e.target;
+    setSelectedState((prevSelected) =>
+      prevSelected.includes(value)
+        ? prevSelected.filter((item) => item !== value)
+        : [...prevSelected, value]
+    );
+  };
+
+  const listTemplate = (listaMascotas, layout) => {
+    console.log(listMascotas);
+    console.log(selectedTipoMascota, selectedTipoRaza, selectedEdad, selectedSexo);
+    const filteredList = listaMascotas.filter(
+      (mascota) =>
+        (selectedTipoMascota.length === 0 || selectedTipoMascota.includes(mascota.pet_type.name)) &&
+        (selectedTipoRaza.length === 0 || selectedTipoRaza.includes(mascota.type_race.name)) &&
+        (selectedEdad.length === 0 || selectedEdad.includes(mascota.age)) &&
+        (selectedSexo.length === 0 || selectedSexo.includes(mascota.sex)) &&
+        (selectedPeso.length === 0 || selectedPeso.includes(mascota.peso)) &&
+        (selectedTamanio.length === 0 || selectedTamanio.includes(mascota.tamanio))
+    );
+
+    return (
+      <div className="grid grid-nogutter">
+        {filteredList.map((product, index) => itemTemplate1(product, layout, index))}
+      </div>
+    );
+  };
+
+  const header = () => {
+    return (
+      <div className="flex justify-content-end">
+        <DataViewLayoutOptions layout={layout} onChange={(e) => setLayout(e.value)} />
+      </div>
+    );
+  };
+
+  const handleTipoMascotaChange = (event) => {
+    setTipoMascota(event.target.checked ? event.target.value : "");
+  };
+
+  const handleTipoRazaChange = (event) => {
+    setTipoRaza(event.target.checked ? event.target.value : "");
+  };
+
+  const handleEdadChange = (event) => {
+    setEdad(event.target.checked ? event.target.value : "");
+  };
+
+  const handleSexoChange = (event) => {
+    setSexo(event.target.checked ? event.target.value : "");
+  };
+
+  const handleColorChange = (event) => {
+    setColor(event.target.checked ? event.target.value : "");
+  };
+
+  return (
+    <div className="fondeGeneral">
+      {" "}
+      <NavbarGeneral />
+      <div className="galleria-container">
+        {" "}
+        <Galleria
+          value={images}
+          responsiveOptions={responsiveOptions}
+          showItemNavigators
+          showItemNavigatorsOnHover
+          showIndicators
+          numVisible={5}
+          circular
+          caption={caption}
+          showThumbnails={false}
+          item={itemTemplate}
+          thumbnail={thumbnailTemplate}
+          autoPlay
+          transitionInterval={2000}
+        />
+      </div>
+      <div className="card">
+        <div className="formgrid grid">
+          <div className="field col-12 md:col-2">
+            <Card
+              title="Lista de Filtros"
+              style={{ width: "100%", marginTop: "50%", height: "100%" }}
+            >
+              <div className="filters">
+                <label style={{ fontWeight: "bold" }}> Tipo de Mascota: </label>
+                {petNames.map((name, index) => (
+                  <div className="filter" key={index}>
+                    <Checkbox
+                      inputId={`filter-${index}`}
+                      value={name}
+                      onChange={handleFilterChange(setSelectedTipoMascota)}
+                      checked={selectedTipoMascota.includes(name)}
+                    />
+                    <label htmlFor={`filter-${index}`} className="p-3">
+                      {name}
+                    </label>
+                  </div>
+                ))}
+
+                <br />
+
+                <label style={{ fontWeight: "bold" }}> Tipo de Raza: </label>
+                {petRace.map((name, index) => (
+                  <div className="filter" key={index}>
+                    <Checkbox
+                      inputId={`filter-${index}`}
+                      value={name}
+                      onChange={handleFilterChange(setSelectedTipoRaza)}
+                      checked={selectedTipoRaza.includes(name)}
+                    />
+                    <label htmlFor={`filter-${index}`} className="p-3">
+                      {name}
+                    </label>
+                  </div>
+                ))}
+                <br />
+                <label style={{ fontWeight: "bold" }}> Edad: </label>
+                {petAge.map((name, index) => (
+                  <div className="filter" key={index}>
+                    <Checkbox
+                      inputId={`filter-${index}`}
+                      value={name}
+                      onChange={handleFilterChange(setSelectedEdad)}
+                      checked={selectedEdad.includes(name)}
+                    />
+                    <label htmlFor={`filter-${index}`} className="p-3">
+                      {name} Años
+                    </label>{" "}
+                  </div>
+                ))}
+                <br />
+                <label style={{ fontWeight: "bold" }}> Sexo: </label>
+                {petSexo.map((name, index) => (
+                  <div className="filter" key={index}>
+                    <Checkbox
+                      inputId={`filter-${index}`}
+                      value={name}
+                      onChange={handleFilterChange(setSelectedSexo)}
+                      checked={selectedSexo.includes(name)}
+                    />
+                    <label htmlFor={`filter-${index}`} className="p-3">
+                      {name}
+                    </label>{" "}
+                  </div>
+                ))}
+                <br />
+                <label style={{ fontWeight: "bold" }}> Peso: </label>
+                {petAge.map((name, index) => (
+                  <div className="filter" key={index}>
+                    <Checkbox
+                      inputId={`filter-${index}`}
+                      value={name}
+                      onChange={handleFilterChange(setSelectedPeso)}
+                      checked={selectedPeso.includes(name)}
+                    />
+                    <label htmlFor={`filter-${index}`} className="p-3">
+                      {name} KG
+                    </label>{" "}
+                  </div>
+                ))}
+                <br />
+                <label style={{ fontWeight: "bold" }}> Edad: </label>
+                {petTamanio.map((name, index) => (
+                  <div className="filter" key={index}>
+                    <Checkbox
+                      inputId={`filter-${index}`}
+                      value={name}
+                      onChange={handleFilterChange(setSelectedTamanio)}
+                      checked={selectedTamanio.includes(name)}
+                    />
+                    <label htmlFor={`filter-${index}`} className="p-3">
+                      {name}
+                    </label>{" "}
+                  </div>
+                ))}
+                {/* Agrega más checkbox para los otros filtros */}
+                {/* Tipo de raza */}
+                {/* Edad */}
+                {/* Sexo */}
+                {/* Color */}
+              </div>{" "}
+            </Card>
+          </div>
+          <div className="field col-12 md:col-10">
+            <DataView
+              value={listaMascotas}
+              listTemplate={listTemplate}
+              layout={layout}
+              header={header()}
+              paginator
+              rows={6}
+              style={{ width: "100%", margin: "10% auto" }}
+            />{" "}
+          </div>
+        </div>
+      </div>
     </div>
-    <div className="page1_block">
-        <div className="container_12">
-            <div className="grid_6">
-                <h2>Welcome to Our Site</h2>
-                <br/>
-                <img src="images/page1_img5.jpg" alt="" className="img_inner fleft"/>
-                <div className="extra_wrapper style1">
-                    <p className="text1"><a href="#">Click here</a> for more info about this free website template created by TemplateMonster.com</p>
-                    Hibh ullamcorper accumsan sem lectus ut sapien. Donec venenatis.
-                </div>
-                <div className="clear"></div>
-                Praesent quis orci eget diam viverra consequat. Fusce sagittis quam in pulvinar sollicitudin velit velit cursus nibh ullamcorper accumsan sem lectus ut sapien. Donec venenatis posuere velit a convallis neque ullamcorper quis. Integer posuere ipsum eu risus sollicitudin nec varius erat luctus. Fusce fringilla erat ac urna pellentesque congue. Nunc fringilla diam sit amet adipiscing bibendum turpis velit feugiat urna et pharetra neque nisi ac nunc. Vivamus est quam dapibus ullamcorper imperdiet nec euismod ut arcu. Nulla facilisi. Etiam mauris lorem pulvinar vel consequat ut pretium ac erat. Morbi facilisis elit eu nisl blandit ac blandit enim faucibus. Praesent quis orci eget diam viverra consequat. Fusce sagittis.
-                <br/>
-                <a href="#" className="btn">More</a>
-            </div>
-            <div className="grid_5 prefix_1">
-                <h2 className="ic1">Latest News</h2>
-                <ul className="list">
-                    <li>
-                        <span>
-                            {/* <time datetime="2045-01-01">27<span>APR</span></time> */}
-                        </span>
-                        <div className="extra_wrapper">
-                            <div className="col1"><a href="#">Duis posuere consectetur pellentesque;</a>
-                                {/* <time datetime="2045-01-01">April 27.03.45</time> */}
-                            </div>
-                            Sed nisi turpis, pellentesque at ultrices in, dapibus in magna. Nunc easi diam risus, placerat ut scelerisque suscipit eu ante. Nullam vitae dolor ullamcorper felis es.
-                        </div>
-                    </li>
-                    <li>
-                        <span className="cnt">
-                            {/* <time datetime="2045-01-01">28<span>APR</span></time> */}
-                        </span>
-                        <div className="extra_wrapper">
-                            <div className="col1"><a href="#">Kuuis posuere consectetur pellentesque;</a>
-                                {/* <time datetime="2045-01-01">April 28.03.45</time> */}
-                            </div>
-                            Sed nisi turpis, pellentesque at ultrices in, dapibus in magna. Nunc easi diam risus, placerat ut scelerisque et suscipit eu ante. Nullam vitae dolor ullamcorper felis es.
-                        </div>
-                    </li>
-                    <li>
-                        <span>
-                            {/* <time datetime="2045-01-01">29<span>APR</span></time> */}
-                        </span>
-                        <div className="extra_wrapper">
-                            <div className="col1"><a href="#">Opuis posuere honsectetur pellentesque;</a>
-                                {/* <time datetime="2045-01-01">April 29.03.45</time> */}
-                            </div>
-                            Sed nisi turpis, pellentesque at ultrices in, dapibus in magna. Nunc easi diam risus, placerat ut scelerisque et suscipit eu ante. Nullam vitae dolor ullamcorper felis es.
-                        </div>
-                    </li>
-                </ul>
-            </div>
-        </div>
-    </div>
-    <div className="content page1">
-        <div className="container_12">
-            <div className="grid_12"><a href="#" className="next"></a><a href="#" className="prev"></a>
-                <h2>Pets for Adoption</h2>
-            </div>
-            <div className="clear"></div>
-            <ul className="carousel1">
-                <li className="grid_4">
-                    <img src="images/carousel1_img1.jpg" alt="" className="img_inner fleft"/>
-                    <div className="extra_wrapper pad1">
-                        <p className="col2"><a href="#">Praesent quis orci diam viverra.</a></p>
-                        Praesent quis orci eget diam viverra consequat. Fusce sagittis quam in pulvinar sollicitudin velit velit cursus nibh ullamcorper accumsan sem lectus ut sapien. Donec venenatis posuere velit a convallis neque ullamcorper quis. Integer posuere ipsum eu risus sollicitudin nec varius erat luctus. Fusce fringilla erat ac urna pellentesque congue. Nunc fringilla diam sit amet adipiscing bibendum turpis velit feugiat urna et pharetra neque nisi ac nunc. Vivamus est quam dapibus ullamcorper imperdiet nec euismod ut arcu. Nulla facilisi. Etiam mauris lorem pulvinar vel consequat ut pretium ac erat. Morbi facilisis elit eu nisl blandit ac blandit enim faucibus.
-                    </div>
-                </li>
-                <li className="grid_4">
-                    <img src="images/carousel1_img2.jpg" alt="" className="img_inner fleft"/>
-                    <div className="extra_wrapper pad1">
-                        <p className="col2"><a href="#">Praesent quis orci diam viverra.</a></p>
-                        Praesent quis orci eget diam viverra consequat. Fusce sagittis quam in pulvinar sollicitudin velit velit cursus nibh ullamcorper accumsan sem lectus ut sapien. Donec venenatis posuere velit a convallis neque ullamcorper quis. Integer posuere ipsum eu risus sollicitudin nec varius erat luctus. Fusce fringilla erat ac urna pellentesque congue. Nunc fringilla diam sit amet adipiscing bibendum turpis velit feugiat urna et pharetra neque nisi ac nunc. Vivamus est quam dapibus ullamcorper imperdiet nec euismod ut arcu. Nulla facilisi. Etiam mauris lorem pulvinar vel consequat ut pretium ac erat. Morbi facilisis elit eu nisl blandit ac blandit enim faucibus.
-                    </div>
-                </li>
-                <li className="grid_4">
-                    <img src="images/carousel1_img3.jpg" alt="" className="img_inner fleft"/>
-                    <div className="extra_wrapper pad1">
-                        <p className="col2"><a href="#">Praesent quis orci diam viverra.</a></p>
-                        Praesent quis orci eget diam viverra consequat. Fusce sagittis quam in pulvinar sollicitudin velit velit cursus nibh ullamcorper accumsan sem lectus ut sapien. Donec venenatis posuere velit a convallis neque ullamcorper quis. Integer posuere ipsum eu risus sollicitudin nec varius erat luctus. Fusce fringilla erat ac urna pellentesque congue. Nunc fringilla diam sit amet adipiscing bibendum turpis velit feugiat urna et pharetra neque nisi ac nunc. Vivamus est quam dapibus ullamcorper imperdiet nec euismod ut arcu. Nulla facilisi. Etiam mauris lorem pulvinar vel consequat ut pretium ac erat. Morbi facilisis elit eu nisl blandit ac blandit enim faucibus.
-                    </div>
-                </li>
-                <li className="grid_4">
-                    <img src="images/carousel1_img4.jpg" alt="" className="img_inner fleft"/>
-                    <div className="extra_wrapper pad1">
-                        <p className="col2"><a href="#">Praesent quis orci diam viverra.</a></p>
-                        Praesent quis orci eget diam viverra consequat. Fusce sagittis quam in pulvinar sollicitudin velit velit cursus nibh ullamcorper accumsan sem lectus ut sapien. Donec venenatis posuere velit a convallis neque ullamcorper quis. Integer posuere ipsum eu risus sollicitudin nec varius erat luctus. Fusce fringilla erat ac urna pellentesque congue. Nunc fringilla diam sit amet adipiscing bibendum turpis velit feugiat urna et pharetra neque nisi ac nunc. Vivamus est quam dapibus ullamcorper imperdiet nec euismod ut arcu. Nulla facilisi. Etiam mauris lorem pulvinar vel consequat ut pretium ac erat. Morbi facilisis elit eu nisl blandit ac blandit enim faucibus.
-                    </div>
-                </li>
-                <li className="grid_4">
-                    <img src="images/carousel1_img5.jpg" alt="" className="img_inner fleft"/>
-                    <div className="extra_wrapper pad1">
-                        <p className="col2"><a href="#">Praesent quis orci diam viverra.</a></p>
-                        Praesent quis orci eget diam viverra consequat. Fusce sagittis quam in pulvinar sollicitudin velit velit cursus nibh ullamcorper accumsan sem lectus ut sapien. Donec venenatis posuere velit a convallis neque ullamcorper quis. Integer posuere ipsum eu risus sollicitudin nec varius erat luctus. Fusce fringilla erat ac urna pellentesque congue. Nunc fringilla diam sit amet adipiscing bibendum turpis velit feugiat urna et pharetra neque nisi ac nunc. Vivamus est quam dapibus ullamcorper imperdiet nec euismod ut arcu. Nulla facilisi. Etiam mauris lorem pulvinar vel consequat ut pretium ac erat. Morbi facilisis elit eu nisl blandit ac blandit enim faucibus.
-                    </div>
-                </li>
-                <li className="grid_4">
-                    <img src="images/carousel1_img6.jpg" alt="" className="img_inner fleft"/>
-                    <div className="extra_wrapper pad1">
-                        <p className="col2"><a href="#">Praesent quis orci diam viverra.</a></p>
-                        Praesent quis orci eget diam viverra consequat. Fusce sagittis quam in pulvinar sollicitudin velit velit cursus nibh ullamcorper accumsan sem lectus ut sapien. Donec venenatis posuere velit a convallis neque ullamcorper quis. Integer posuere ipsum eu risus sollicitudin nec varius erat luctus. Fusce fringilla erat ac urna pellentesque congue. Nunc fringilla diam sit amet adipiscing bibendum turpis velit feugiat urna et pharetra neque nisi ac nunc. Vivamus est quam dapibus ullamcorper imperdiet nec euismod ut arcu. Nulla facilisi. Etiam mauris lorem pulvinar vel consequat ut pretium ac erat. Morbi facilisis elit eu nisl blandit ac blandit enim faucibus.
-                    </div>
-                </li>
-            </ul>
-        </div>
-    </div>
-    <div className="bottom_block">
-        <div className="container_12">
-            <div className="grid_6">
-                <h2>Pet Care Tips</h2>
-                <br/>
-                Praesent quis orci eget diam viverra consequat. Fusce sagittis quam in pulvinar sollicitudin velit velit cursus nibh ullamcorper accumsan sem lectus ut sapien. Donec venenatis posuere velit a convallis neque ullamcorper quis. Integer posuere ipsum eu risus sollicitudin nec varius erat luctus. Fusce fringilla erat ac urna pellentesque congue. Nunc fringilla diam sit amet adipiscing bibendum turpis velit feugiat urna et pharetra neque nisi ac nunc. Vivamus est quam dapibus ullamcorper imperdiet nec euismod ut arcu. Nulla facilisi. Etiam mauris lorem pulvinar vel consequat ut pretium ac erat. Morbi facilisis elit eu nisl blandit ac blandit enim faucibus. Praesent quis orci eget diam viverra consequat. Fusce sagittis.
-            </div>
-            <div className="grid_4 prefix_2">
-                <h2 className="ic1">Any Question?</h2>
-                <img src="images/page1_img4.jpg" alt="" className="fleft img_inner"/>
-                <div className="extra_wrapper">
-                    <div className="cont">Call Us Free: <span>+1 800 559 6580</span></div>
-                </div>
-                <div className="clear"></div>
-                Nunc fringilla, diam sit amet adipiscing bibendum turpis velit feugiat urna, et pharetra neque nisi ac nunc. Vivamus est quam dapibus ullamcorper imperdiet nec euismod ut arcu. Nulla facilisi. Etiam mauris.
-            </div>
-        </div>
-    </div>
-    <footer>
-        <div className="container_12">
-            <div className="grid_12">
-                <div className="socials"><a href="#"></a> <a href="#"></a> <a href="#"></a> <a href="#"></a></div>
-                <p>Pet Club &copy; 2045 | <a href="#">Privacy Policy</a> | Design by: <a href="http://www.templatemonster.com/">TemplateMonster.com</a></p>
-            </div>
-            <div className="clear"></div>
-        </div>
-    </footer>
-  </>
-    
-    )
+  );
 }
 
-export default VistaGneral;
+export default VistaGeneral;

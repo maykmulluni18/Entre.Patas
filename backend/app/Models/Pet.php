@@ -8,7 +8,7 @@ use App\Traits\UUID;
 
 class Pet extends Model
 {
-    use HasFactory;
+    use HasFactory, UUID;
     protected $fillable = [
         'name',
         'age',
@@ -20,6 +20,8 @@ class Pet extends Model
         'sterilized',
         'vaccination',
         'state',
+        'peso',
+        'tamanio',
         'pet_type_id',
         'type_race_id',
         'low'
