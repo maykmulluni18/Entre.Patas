@@ -3,7 +3,6 @@ import { Galleria } from "primereact/galleria";
 import { ServicioImagen } from "./ServicioImagen";
 import { Button } from "primereact/button";
 import { DataView, DataViewLayoutOptions } from "primereact/dataview";
-import { Rating } from "primereact/rating";
 import { Tag } from "primereact/tag";
 import { Card } from "primereact/card";
 import { Link } from "react-router-dom";
@@ -27,11 +26,6 @@ function VistaGeneral() {
   const [petSexo, setPetSexo] = useState([]);
   const [petPeso, setPetPeso] = useState([]);
 
-  const [tipoMascota, setTipoMascota] = useState("");
-  const [tipoRaza, setTipoRaza] = useState("");
-  const [edad, setEdad] = useState("");
-  const [sexo, setSexo] = useState("");
-  const [color, setColor] = useState("");
 
   const responsiveOptions = [
     {
@@ -112,21 +106,6 @@ function VistaGeneral() {
   //   listaMascotaservice.getlistaMascotas().then((data) => setlistaMascotas(data.slice(0, 12)));
   // }, []);
 
-  const getSeverity = (product) => {
-    switch (product.inventoryStatus) {
-      case "INSTOCK":
-        return "success";
-
-      case "LOWSTOCK":
-        return "warning";
-
-      case "OUTOFSTOCK":
-        return "danger";
-
-      default:
-        return null;
-    }
-  };
 
   const listItem = (product, index) => {
     return (
@@ -288,25 +267,6 @@ function VistaGeneral() {
     );
   };
 
-  const handleTipoMascotaChange = (event) => {
-    setTipoMascota(event.target.checked ? event.target.value : "");
-  };
-
-  const handleTipoRazaChange = (event) => {
-    setTipoRaza(event.target.checked ? event.target.value : "");
-  };
-
-  const handleEdadChange = (event) => {
-    setEdad(event.target.checked ? event.target.value : "");
-  };
-
-  const handleSexoChange = (event) => {
-    setSexo(event.target.checked ? event.target.value : "");
-  };
-
-  const handleColorChange = (event) => {
-    setColor(event.target.checked ? event.target.value : "");
-  };
 
   return (
     <div className="fondeGeneral">
@@ -335,7 +295,7 @@ function VistaGeneral() {
           <div className="field col-12 md:col-2">
             <Card
               title="Lista de Filtros"
-              style={{ width: "100%", marginTop: "50%", height: "100%" }}
+              style={{ width: "100%", height: "100%" }}
             >
               <div className="filters">
                 <label style={{ fontWeight: "bold" }}> Tipo de Mascota: </label>
@@ -445,7 +405,7 @@ function VistaGeneral() {
               header={header()}
               paginator
               rows={6}
-              style={{ width: "100%", margin: "10% auto" }}
+              style={{ width: "100%" }}
             />{" "}
           </div>
         </div>

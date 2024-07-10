@@ -21,4 +21,9 @@ class UserAdoptionSponsorship extends Model
     {
         return $this->hasMany(AdoptionAnswer::class);
     }
+
+    public function adoption()
+    {
+        return $this->hasMany(Adoption::class);
+    }
 }

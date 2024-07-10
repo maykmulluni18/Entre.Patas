@@ -42,6 +42,7 @@ import "primereact/resources/primereact.css";
 import "primereact/resources/themes/lara-light-indigo/theme.css";
 import "./index.css";
 // Icon Fonts
+
 import "assets/css/nucleo-icons.css";
 import VistaGneral from "views/vistaGeneral/VistaGeneral";
 import "assets/css/nucleo-svg.css";
@@ -54,7 +55,7 @@ import "assets/css/slider.css";
 import "assets/css/superfish.css";
 import VerMascota from "views/vistaGeneral/verMascota/VerMacota";
 import VerCuestionarioUsers from "views/vistaGeneral/vistaCuestionarioUsers/VerCuestionarioUsers";
-
+import Prueva from "views/vistaGeneral/Prueva";
 export default function App() {
   const [controller, dispatch] = useArgonController();
   const { miniSidenav, direction, layout, openConfigurator, sidenavColor, darkSidenav, darkMode } =
@@ -143,9 +144,10 @@ export default function App() {
   return (
     <>
       <Routes>
+        {/* <Route path="/vista" element={<Prueva />} />
         <Route path="/vista-general" element={<VistaGneral />} />
         <Route path="/vista-general/mascota/:id" element={<VerMascota />} />
-        <Route path="/vista-general/mascota/:id/adoptar" element={<VerCuestionarioUsers />} />
+        <Route path="/vista-general/mascota/:id/adoptar" element={<VerCuestionarioUsers />} /> */}
 
         <Route
           path="*"
@@ -208,7 +210,7 @@ export default function App() {
                 )}
                 <Routes>
                   {getRoutes(routes)}
-                  <Route path="*" element={<Navigate to="/dashboard" />} />
+                  <Route path="*" element={<Navigate to="/authentication/sign-in" />} />
                 </Routes>
               </ThemeProvider>
             )

@@ -25,10 +25,9 @@ class UserAdoptionSponsorshipController extends Controller
         $validator = Validator::make($request->all(), [
             'name' => 'required',
             'fullname' => 'required',
-            'email' => 'required|email',
+            'email' => 'required|string|email|max:255',
             'phone' => 'required',
             'direction' => 'required',
-            'low' => 'required|boolean',
         ]);
 
         try {

@@ -54,6 +54,7 @@ import FromIndexTR from "views/vistasAdmin/tipoRaza/FromIndexTR";
 
 import IndexMascotas from "views/vistasAdmin/mascotas/IndexMascota";
 import FromIndexMascota from "views/vistasAdmin/mascotas/FromIndexMascota";
+import IndexAdopcion from "views/vistasAdmin/adopciones/IndexAdopcion";
 
 const routes = [
   // {
@@ -65,204 +66,324 @@ const routes = [
   //   component: <VistaGneral />,
   // },
 
-  {
-    type: "route",
-    name: "Dashboard",
-    key: "dashboard",
-    route: "/dashboard",
-    icon: <ArgonBox component="i" color="primary" fontSize="14px" className="ni ni-tv-2" />,
-    component: <Dashboard />,
-  },
+  sessionStorage.getItem("token")
+    ? {
+        type: "route",
+        name: "Dashboard",
+        key: "dashboard",
+        route: "/dashboard",
+        icon: <ArgonBox component="i" color="primary" fontSize="14px" className="ni ni-tv-2" />,
+        component: <Dashboard />,
+      }
+    : {
+        route: "/authentication/sign-in",
+        icon: (
+          <ArgonBox
+            component="i"
+            color="warning"
+            fontSize="14px"
+            className="ni ni-single-copy-04"
+          />
+        ),
+        component: <SignIn />,
+      },
 
-  {
-    type: "route",
-    name: "Tables",
-    key: "tables",
-    route: "/tables",
-    icon: (
-      <ArgonBox component="i" color="warning" fontSize="14px" className="ni ni-calendar-grid-58" />
-    ),
-    component: <Tables />,
-  },
-  {
-    type: "route",
-    name: "Lista de Adopciones",
-    key: "adoptions",
-    route: "/adoptions",
-    icon: (
-      <ArgonBox component="i" color="warning" fontSize="14px" className="ni ni-calendar-grid-58" />
-    ),
-    component: "",
-  },
-  {
-    type: "route",
-    name: "Lista de Mascotas",
-    key: "listPets",
-    route: "/listPets",
-    icon: (
-      <ArgonBox component="i" color="warning" fontSize="14px" className="ni ni-calendar-grid-58" />
-    ),
-    component: <IndexMascotas />,
-    collapse: [
-      {
+  // {
+  //   type: "route",
+  //   name: "Tables",
+  //   key: "tables",
+  //   route: "/tables",
+  //   icon: (
+  //     <ArgonBox component="i" color="warning" fontSize="14px" className="ni ni-calendar-grid-58" />
+  //   ),
+  //   component: <Tables />,
+  // },
+  sessionStorage.getItem("token")
+    ? {
+        type: "route",
+        name: "Lista de Adopciones",
+        key: "adoptions",
+        route: "/adoptions",
+        icon: (
+          <ArgonBox
+            component="i"
+            color="warning"
+            fontSize="14px"
+            className="ni ni-calendar-grid-58"
+          />
+        ),
+        component: <IndexAdopcion />,
+      }
+    : {
+        route: "/authentication/sign-in",
+        icon: (
+          <ArgonBox
+            component="i"
+            color="warning"
+            fontSize="14px"
+            className="ni ni-single-copy-04"
+          />
+        ),
+        component: <SignIn />,
+      },
+
+  sessionStorage.getItem("token")
+    ? {
         type: "route",
         name: "Lista de Mascotas",
         key: "listPets",
         route: "/listPets",
         icon: (
-          <ArgonBox component="i" color="info" fontSize="14px" className="ni ni-briefcase-24" />
+          <ArgonBox component="i" color="warning" fontSize="14px" className="ni ni-collection" />
         ),
         component: <IndexMascotas />,
-      },
-      {
-        type: "route",
-        name: "Form_create",
-        key: "form_create",
-        route: "/listPets/form/",
-        icon: <ArgonBox component="i" color="info" fontSize="14px" className="ni ni-books" />,
+        collapse: [
+          {
+            type: "route",
+            name: "Lista de Mascotas",
+            key: "listPets",
+            route: "/listPets",
+            icon: (
+              <ArgonBox component="i" color="info" fontSize="14px" className="ni ni-briefcase-24" />
+            ),
+            component: <IndexMascotas />,
+          },
+          {
+            type: "route",
+            name: "Form_create",
+            key: "form_create",
+            route: "/listPets/form/",
+            icon: <ArgonBox component="i" color="info" fontSize="14px" className="ni ni-books" />,
 
-        component: <FromIndexMascota />,
+            component: <FromIndexMascota />,
+          },
+          {
+            type: "route",
+            name: "Form_edit",
+            key: "form_edit",
+            route: "/listPets/form/:id",
+            icon: <ArgonBox component="i" color="info" fontSize="14px" className="ni ni-books" />,
+            component: <FromIndexMascota />,
+          },
+        ],
+      }
+    : {
+        route: "/authentication/sign-in",
+        icon: (
+          <ArgonBox
+            component="i"
+            color="warning"
+            fontSize="14px"
+            className="ni ni-single-copy-04"
+          />
+        ),
+        component: <SignIn />,
       },
-      {
-        type: "route",
-        name: "Form_edit",
-        key: "form_edit",
-        route: "/listPets/form/:id",
-        icon: <ArgonBox component="i" color="info" fontSize="14px" className="ni ni-books" />,
-        component: <FromIndexMascota />,
-      },
-    ],
-  },
-  {
-    type: "route",
-    name: "Tipo de Mascotas",
-    key: "teypePets",
-    route: "/teypePets",
-    icon: (
-      <ArgonBox component="i" color="warning" fontSize="14px" className="ni ni-calendar-grid-58" />
-    ),
-    component: <IndexTipoMascota />,
-    collapse: [
-      {
+
+  sessionStorage.getItem("token")
+    ? {
         type: "route",
         name: "Tipo de Mascotas",
         key: "teypePets",
         route: "/teypePets",
         icon: (
-          <ArgonBox component="i" color="info" fontSize="14px" className="ni ni-briefcase-24" />
+          <ArgonBox
+            component="i"
+            color="warning"
+            fontSize="14px"
+            className="ni ni-calendar-grid-58"
+          />
         ),
         component: <IndexTipoMascota />,
-      },
-      {
-        type: "route",
-        name: "Form_create",
-        key: "form_create",
-        route: "/teypePets/form/",
-        icon: <ArgonBox component="i" color="info" fontSize="14px" className="ni ni-books" />,
+        collapse: [
+          {
+            type: "route",
+            name: "Tipo de Mascotas",
+            key: "teypePets",
+            route: "/teypePets",
+            icon: (
+              <ArgonBox component="i" color="info" fontSize="14px" className="ni ni-briefcase-24" />
+            ),
+            component: <IndexTipoMascota />,
+          },
+          {
+            type: "route",
+            name: "Form_create",
+            key: "form_create",
+            route: "/teypePets/form/",
+            icon: <ArgonBox component="i" color="info" fontSize="14px" className="ni ni-books" />,
 
-        component: <FromIndexTM />,
+            component: <FromIndexTM />,
+          },
+          {
+            type: "route",
+            name: "Form_edit",
+            key: "form_edit",
+            route: "/teypePets/form/:id",
+            icon: <ArgonBox component="i" color="info" fontSize="14px" className="ni ni-books" />,
+            component: <FromIndexTM />,
+          },
+        ],
+      }
+    : {
+        route: "/authentication/sign-in",
+        icon: (
+          <ArgonBox
+            component="i"
+            color="warning"
+            fontSize="14px"
+            className="ni ni-single-copy-04"
+          />
+        ),
+        component: <SignIn />,
       },
-      {
+
+  sessionStorage.getItem("token")
+    ? {
         type: "route",
-        name: "Form_edit",
-        key: "form_edit",
-        route: "/teypePets/form/:id",
-        icon: <ArgonBox component="i" color="info" fontSize="14px" className="ni ni-books" />,
-        component: <FromIndexTM />,
-      },
-    ],
-  },
-  {
-    type: "route",
-    name: "Tipo de Raza",
-    key: "typeRace",
-    route: "/teypeRace",
-    icon: (
-      <ArgonBox component="i" color="warning" fontSize="14px" className="ni ni-calendar-grid-58" />
-    ),
-    component: <IndexTipoRaza />,
-    collapse: [
-      {
-        type: "route",
-        name: "Tipo de Mascotas",
-        key: "teypeRace",
+        name: "Tipo de Raza",
+        key: "typeRace",
         route: "/teypeRace",
         icon: (
-          <ArgonBox component="i" color="info" fontSize="14px" className="ni ni-briefcase-24" />
+          <ArgonBox
+            component="i"
+            color="warning"
+            fontSize="14px"
+            className="ni ni-calendar-grid-58"
+          />
         ),
         component: <IndexTipoRaza />,
+        collapse: [
+          {
+            type: "route",
+            name: "Tipo de Mascotas",
+            key: "teypeRace",
+            route: "/teypeRace",
+            icon: (
+              <ArgonBox component="i" color="info" fontSize="14px" className="ni ni-briefcase-24" />
+            ),
+            component: <IndexTipoRaza />,
+          },
+          {
+            type: "route",
+            name: "Form_create",
+            key: "form_create",
+            route: "/teypeRace/form/",
+            icon: <ArgonBox component="i" color="info" fontSize="14px" className="ni ni-books" />,
+
+            component: <FromIndexTR />,
+          },
+          {
+            type: "route",
+            name: "Form_edit",
+            key: "form_edit",
+            route: "/teypeRace/form/:id",
+            icon: <ArgonBox component="i" color="info" fontSize="14px" className="ni ni-books" />,
+            component: <FromIndexTR />,
+          },
+        ],
+      }
+    : {
+        route: "/authentication/sign-in",
+        icon: (
+          <ArgonBox
+            component="i"
+            color="warning"
+            fontSize="14px"
+            className="ni ni-single-copy-04"
+          />
+        ),
+        component: <SignIn />,
       },
-      {
+
+  sessionStorage.getItem("token")
+    ? {
         type: "route",
-        name: "Form_create",
-        key: "form_create",
-        route: "/teypeRace/form/",
-        icon: <ArgonBox component="i" color="info" fontSize="14px" className="ni ni-books" />,
-
-        component: <FromIndexTR />,
+        name: "Lista de Donaciones",
+        key: "donations",
+        route: "/donations",
+        icon: <ArgonBox component="i" color="warning" fontSize="14px" className="ni ni-books" />,
+        component: "",
+      }
+    : {
+        route: "/authentication/sign-in",
+        icon: (
+          <ArgonBox
+            component="i"
+            color="warning"
+            fontSize="14px"
+            className="ni ni-single-copy-04"
+          />
+        ),
+        component: <SignIn />,
       },
-      {
+
+  sessionStorage.getItem("token")
+    ? {
         type: "route",
-        name: "Form_edit",
-        key: "form_edit",
-        route: "/teypeRace/form/:id",
-        icon: <ArgonBox component="i" color="info" fontSize="14px" className="ni ni-books" />,
-        component: <FromIndexTR />,
+        name: "Lista de apdrinamiento",
+        key: "apadra",
+        route: "/apadra",
+        icon: (
+          <ArgonBox
+            component="i"
+            color="warning"
+            fontSize="14px"
+            className="ni ni-calendar-grid-58"
+          />
+        ),
+        component: "",
+      }
+    : {
+        route: "/authentication/sign-in",
+        icon: (
+          <ArgonBox
+            component="i"
+            color="warning"
+            fontSize="14px"
+            className="ni ni-single-copy-04"
+          />
+        ),
+        component: <SignIn />,
       },
-    ],
-  },
+  sessionStorage.getItem("token")
+    ? {
+        type: "route",
+        name: "Lista de Contactos",
+        key: "contacts",
+        route: "/contacts",
+        icon: (
+          <ArgonBox
+            component="i"
+            color="warning"
+            fontSize="14px"
+            className="ni ni-calendar-grid-58"
+          />
+        ),
+        component: "",
+      }
+    : {
+        route: "/authentication/sign-in",
+        icon: (
+          <ArgonBox
+            component="i"
+            color="warning"
+            fontSize="14px"
+            className="ni ni-single-copy-04"
+          />
+        ),
+        component: <SignIn />,
+      },
+  // { type: "title", title: "Account Pages", key: "account-pages" },
+  // {
+  //   type: "route",
+  //   name: "Profile",
+  //   key: "profile",
+  //   route: "/profile",
+  //   icon: <ArgonBox component="i" color="dark" fontSize="14px" className="ni ni-single-02" />,
+  //   component: <Profile />,
+  // },
 
-  {
-    type: "route",
-    name: "Lista de Donaciones",
-    key: "donations",
-    route: "/donations",
-    icon: (
-      <ArgonBox component="i" color="warning" fontSize="14px" className="ni ni-calendar-grid-58" />
-    ),
-    component: "",
-  },
-
-  {
-    type: "route",
-    name: "Lista de apdrinamiento",
-    key: "apadra",
-    route: "/apadra",
-    icon: (
-      <ArgonBox component="i" color="warning" fontSize="14px" className="ni ni-calendar-grid-58" />
-    ),
-    component: "",
-  },
-
-  {
-    type: "route",
-    name: "Lista de Contactos",
-    key: "contacts",
-    route: "/contacts",
-    icon: (
-      <ArgonBox component="i" color="warning" fontSize="14px" className="ni ni-calendar-grid-58" />
-    ),
-    component: "",
-  },
-  { type: "title", title: "Account Pages", key: "account-pages" },
-  {
-    type: "route",
-    name: "Profile",
-    key: "profile",
-    route: "/profile",
-    icon: <ArgonBox component="i" color="dark" fontSize="14px" className="ni ni-single-02" />,
-    component: <Profile />,
-  },
-  {
-    type: "route",
-    name: "Sign In",
-    key: "sign-in",
-    route: "/authentication/sign-in",
-    icon: (
-      <ArgonBox component="i" color="warning" fontSize="14px" className="ni ni-single-copy-04" />
-    ),
-    component: <SignIn />,
-  },
   // {
   //   type: "route",
   //   name: "Sign Up",

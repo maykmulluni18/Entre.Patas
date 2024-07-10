@@ -15,10 +15,10 @@ return new class extends Migration
             $table->uuid('id')->primary();
             $table->string('name');
             $table->string('fullname');
-            $table->string('email')->unique();
+            $table->string('email');
             $table->string('phone');
             $table->string('direction');
-            $table->boolean('low')->default(1); 
+            $table->boolean('low')->default(1);
             $table->timestamps();
         });
     }

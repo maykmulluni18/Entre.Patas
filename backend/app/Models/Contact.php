@@ -16,7 +16,5 @@ class Contact extends Model
         'phone',
         'direction',
         'type',
-        'low'
-
     ];
 }

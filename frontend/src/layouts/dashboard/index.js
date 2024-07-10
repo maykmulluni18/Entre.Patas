@@ -106,14 +106,7 @@ function Default() {
             <Slider />
           </Grid>
         </Grid>
-        <Grid container spacing={3}>
-          <Grid item xs={12} md={8}>
-            <SalesTable title="Sales by Country" rows={salesTableData} />
-          </Grid>
-          <Grid item xs={12} md={4}>
-            <CategoriesList title="categories" categories={categoriesListData} />
-          </Grid>
-        </Grid>
+        
       </ArgonBox>
       <Footer />
     </DashboardLayout>

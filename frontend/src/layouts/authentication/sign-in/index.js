@@ -28,6 +28,8 @@ import ArgonInput from "components/ArgonInput";
 import ArgonButton from "components/ArgonButton";
 import axios from "axios";
 // Authentication layout components
+import { useNavigate, useParams } from "react-router-dom";
+
 import IllustrationLayout from "layouts/authentication/components/IllustrationLayout";
 import { Api_LOGIN } from "config/api";
 // Image
@@ -36,12 +38,13 @@ const bgImage =
 
 function Illustration() {
   const [rememberMe, setRememberMe] = useState(false);
+  const navigate = useNavigate();
 
   const handleSetRememberMe = () => setRememberMe(!rememberMe);
 
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-
+  const [error, setError] = useState("");
   const handleSubmit = async (event) => {
     event.preventDefault();
 
@@ -50,9 +53,18 @@ function Illustration() {
         email: email,
         password: password,
       });
-      console.log(response.data); // Maneja la respuesta según lo necesites, por ejemplo, almacenando el token de autenticación en el estado
+      console.log(response.status);
+      if (response.status === 201) {
+        sessionStorage.setItem("token", response.data.token);
+        // Redirige a la página principal después de logearse con éxito
+        window.location.href = "/dashboard";
+      }
     } catch (error) {
-      console.error("Error al iniciar sesión:", error); // Muestra el mensaje de error devuelto por la API
+      console.log(error);
+      if (error) {
+        console.log(error);
+        setError(error?.response?.data?.message);
+      }
     }
   };
 
@@ -67,6 +79,8 @@ function Illustration() {
           "The more effortless the writing looks, the more effort the writer actually put into the process.",
       }}
     >
+      <span style={{ color: "red" }}>{error}</span>
+
       <ArgonBox component="form" role="form" onSubmit={handleSubmit}>
         <ArgonBox mb={2}>
           <ArgonInput
@@ -74,7 +88,10 @@ function Illustration() {
             placeholder="Email"
             size="large"
             value={email}
-            onChange={(e) => setEmail(e.target.value)}
+            onChange={(e) => {
+              setEmail(e.target.value);
+              setError(""); // Limpiar el error
+            }}
           />
         </ArgonBox>
         <ArgonBox mb={2}>
@@ -83,7 +100,10 @@ function Illustration() {
             placeholder="Contraseña"
             size="large"
             value={password}
-            onChange={(e) => setPassword(e.target.value)}
+            onChange={(e) => {
+              setPassword(e.target.value);
+              setError(""); // Limpiar el error
+            }}
           />
         </ArgonBox>
         {/* <ArgonBox display="flex" alignItems="center">

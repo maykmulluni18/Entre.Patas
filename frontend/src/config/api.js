@@ -1,4 +1,4 @@
-const URI = "http://127.0.0.1:8000/api/";
+const URI = "http://64.227.8.193:8081/api/";
 //PARA VERIMAGENES
 //php artisan storage:link
 export const Api_LOGIN = URI + "login";
@@ -28,3 +28,5 @@ export const putApiMascota = URI + "mascotas/";
 export const enableApiMascota = URI + "mascotas/enable/";
 export const disableApiMascota = URI + "mascotas/disable/";
 export const listEnableApiMascota = URI + "list_mascotas_enable";
+
+export const apiAdoptionUsers = URI + "adoptions";

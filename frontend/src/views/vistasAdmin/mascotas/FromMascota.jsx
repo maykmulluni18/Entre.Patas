@@ -97,7 +97,7 @@ const FromMascota = () => {
       tamanio: tamanio,
       sterilized: sterilized,
       vaccination: vaccination,
-      state: state,
+      state: state || "No Adoptado",
       pet_type_id: petTypeId,
       type_race_id: typeRaceId,
     };
@@ -147,7 +147,7 @@ const FromMascota = () => {
     } else {
       try {
         console.log(data);
-        const response = await axios.post(postApiMascota, data, {
+        const response = await axios.post(postApiMascota, body, {
           headers: {
             "Content-Type": "multipart/form-data",
           },

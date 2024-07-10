@@ -215,4 +215,24 @@ class PetController extends Controller
     }
 
 
+    // Actualizar solo el estado de una mascota
+    public function updateState(Request $request, $id)
+    {
+        try {
+
+            // Buscar la mascota por su ID
+            $pet = Pet::findOrFail($id);
+
+            // Actualizar solo el estado
+            $pet->state = 'Adoptado'; // Asignar directamente el valor 'Adoptado'
+            $pet->save();
+
+            return response()->json(['message' => 'Pet state updated successfully', 'pet' => $pet], 201);
+
+        } catch (\Exception $e) {
+            return response()->json(['message' => $e->getMessage()], 500);
+        }
+
+    }
+
 }

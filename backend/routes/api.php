@@ -1,5 +1,7 @@
 <?php
 
+use App\Http\Controllers\AdoptionAnswerController;
+use App\Http\Controllers\AdoptionController;
 use App\Http\Controllers\PetController;
 use App\Http\Controllers\PetTypeController;
 use App\Http\Controllers\QuestionnaireController;
@@ -65,4 +67,19 @@ Route::post('mascotas/{id}', [PetController::class, 'update'])->name('mascotas.u
 Route::patch('mascotas/disable/{id}', [PetController::class, 'disable'])->name('mascotas.disable');
 Route::patch('mascotas/enable/{id}', [PetController::class, 'enable'])->name('mascotas.enable');
 Route::get('list_mascotas_enable', [PetController::class, 'listEnablePet'])->name('list_mascotas_enable.listEnablePet');
+Route::patch('state_mascotas/{id}', [PetController::class, 'updateState'])->name('state_mascotas.updateState');
+
 //Route::get('mascotas/search/{name}', [PetController::class, 'searchByName'])->name('mascotas.searchByName');
+
+
+Route::get('user_adoptions', [UserAdoptionSponsorshipController::class, 'index'])->name('user_adoptions.index');
+Route::post('user_adoptions', [UserAdoptionSponsorshipController::class, 'create'])->name('user_adoptions.create');
+
+
+Route::post('answer_adoptions', [AdoptionAnswerController::class, 'create'])->name('answer_adoptions.create');
+Route::get('answer_adoptions/{id}', [AdoptionAnswerController::class, 'indexAnswer'])->name('answer_adoptions.indexAnswer');
+
+Route::post('adoptions_generate', [AdoptionController::class, 'create'])->name('adoptions_generate.reate');
+
+
+Route::get('adoptions', [AdoptionController::class, 'index'])->name('adoptions.index');
