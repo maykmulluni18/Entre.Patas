@@ -2,6 +2,8 @@
 
 use App\Http\Controllers\AdoptionAnswerController;
 use App\Http\Controllers\AdoptionController;
+use App\Http\Controllers\ContactController;
+use App\Http\Controllers\DonationController;
 use App\Http\Controllers\PetController;
 use App\Http\Controllers\PetTypeController;
 use App\Http\Controllers\QuestionnaireController;
@@ -70,7 +72,8 @@ Route::get('list_mascotas_enable', [PetController::class, 'listEnablePet'])->nam
 Route::patch('state_mascotas/{id}', [PetController::class, 'updateState'])->name('state_mascotas.updateState');
 
 //Route::get('mascotas/search/{name}', [PetController::class, 'searchByName'])->name('mascotas.searchByName');
-
+Route::get('contacts', [ContactController::class, 'index'])->name('contacts.index');
+Route::post('contacts', [ContactController::class, 'create'])->name('contacts.create');
 
 Route::get('user_adoptions', [UserAdoptionSponsorshipController::class, 'index'])->name('user_adoptions.index');
 Route::post('user_adoptions', [UserAdoptionSponsorshipController::class, 'create'])->name('user_adoptions.create');
@@ -83,3 +86,13 @@ Route::post('adoptions_generate', [AdoptionController::class, 'create'])->name('
 
 
 Route::get('adoptions', [AdoptionController::class, 'index'])->name('adoptions.index');
+
+//donation
+Route::get('donations', [DonationController::class, 'index'])->name('donations.index');
+Route::post('donations', [DonationController::class, 'create'])->name('donations.create');
+// Route::get('donations/{id}', [DonationController::class, 'show'])->name('donations.show');
+// Route::put('donations/{id}', [DonationController::class, 'update'])->name('donations.update');
+// Route::patch('donations/{id}', [DonationController::class, 'destroy'])->name('donations.destroy');
+// Route::get('donations/user/{id}', [DonationController::class, 'showByUser'])->name('donations.showByUser');
+
+

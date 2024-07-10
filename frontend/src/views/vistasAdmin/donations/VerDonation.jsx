@@ -10,17 +10,17 @@ import { Button } from "primereact/button";
 import { Link } from "react-router-dom";
 import { Tag } from "primereact/tag";
 import axios from "axios";
-import { apiAdoptionUsers, enableApiMascota, disableApiMascota } from "config/api";
+import { getDonation } from "config/api";
 // Data
-const VerAdopcion = () => {
+const VerDonation = () => {
   const [listData, setListData] = useState([]);
 
   async function getlistData() {
     try {
-      const response = await axios.get(apiAdoptionUsers);
-      console.log(response.data.data);
+      const response = await axios.get(getDonation);
+      console.log(response.data);
       if (response.status === 200) {
-        setListData(response.data.data);
+        setListData(response.data);
       }
     } catch (error) {
       console.log("Error al obtener los datos", error);
@@ -151,7 +151,7 @@ const VerAdopcion = () => {
         </ArgonBox>
         <Card>
           <ArgonBox display="flex" justifyContent="space-between" alignItems="center" p={3}>
-            <ArgonTypography variant="h6">Lista de Adopciones</ArgonTypography>
+            <ArgonTypography variant="h6">Lista de Donaciones</ArgonTypography>
           </ArgonBox>
           <ArgonBox
             sx={{
@@ -174,27 +174,13 @@ const VerAdopcion = () => {
               >
                 <Column field="" header="" style={{ width: "2%" }}></Column>
                 {/* <Column field="id" header="ID" style={{ width: "25%" }}></Column> */}
-                <Column
-                  field="name"
-                  header="Nombre del Adoptante"
-                  style={{ width: "25%" }}
-                ></Column>
-                <Column field="fullname" header="Apellidos" style={{ width: "5%" }}></Column>
-                <Column field="direction" header="Direction" style={{ width: "25%" }}></Column>
-                <Column field="email" header="Correo" style={{ width: "35%" }}></Column>
-                <Column field="phone" header="Telefono" style={{ width: "35%" }}></Column>
+                <Column field="name" header="Nombre " style={{ width: "15%" }}></Column>
+                <Column field="fullname" header="Apellidos" style={{ width: "10%" }}></Column>
+                <Column field="email" header="Correo" style={{ width: "25%" }}></Column>
+                <Column field="phone" header="Telefono" style={{ width: "20%" }}></Column>
 
-                <Column
-                  field="type_name_masc"
-                  header="Tipo Mascota"
-                  style={{ width: "25%" }}
-                ></Column>
+                <Column field="quantity" header="Cantidad Donada" style={{ width: "50%" }}></Column>
 
-                <Column
-                  field="name_mascota"
-                  header="Nombre Mascota"
-                  style={{ width: "25%" }}
-                ></Column>
                 {/* <Column body={renderStatusTag} header="Estado" style={{ width: "25%" }}></Column>
                 <Column body={actionBodyTemplate} header="Actions" style={{ width: "25%" }} /> */}
               </DataTable>
@@ -207,4 +193,4 @@ const VerAdopcion = () => {
   );
 };
 
-export default VerAdopcion;
+export default VerDonation;

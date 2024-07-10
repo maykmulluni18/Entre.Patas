@@ -198,7 +198,7 @@ class PetController extends Controller
     {
         try {
             //$typePet = Pet::where('low', 1)->get();
-            $pets = Pet::with(['petType', 'typeRace'])->where('low', 1)->orderBy('created_at', 'desc')
+            $pets = Pet::with(['petType', 'typeRace'])->where('low', 1)->where('state', 'No Adoptado')->orderBy('created_at', 'desc')
                 ->get();
             // $pets = Pet::all();
             //  return response()->json($pets, 200);

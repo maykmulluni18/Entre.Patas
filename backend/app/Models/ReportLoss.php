@@ -16,6 +16,7 @@ class ReportLoss extends Model
         'description',
         'date_end',
         'state',
+        'number',
         'low'
 
     ];

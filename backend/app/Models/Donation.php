@@ -8,7 +8,7 @@ use App\Traits\UUID;
 
 class Donation extends Model
 {
-    use HasFactory;
+    use HasFactory, UUID;
     protected $fillable = [
         'name',
         'fullname',

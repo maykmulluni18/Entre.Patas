@@ -55,6 +55,8 @@ import FromIndexTR from "views/vistasAdmin/tipoRaza/FromIndexTR";
 import IndexMascotas from "views/vistasAdmin/mascotas/IndexMascota";
 import FromIndexMascota from "views/vistasAdmin/mascotas/FromIndexMascota";
 import IndexAdopcion from "views/vistasAdmin/adopciones/IndexAdopcion";
+import IndexContact from "views/vistasAdmin/contact/IndexContact";
+import IndexDonation from "views/vistasAdmin/donations/IndexDonation";
 
 const routes = [
   // {
@@ -69,7 +71,7 @@ const routes = [
   sessionStorage.getItem("token")
     ? {
         type: "route",
-        name: "Dashboard",
+        name: "Inicio",
         key: "dashboard",
         route: "/dashboard",
         icon: <ArgonBox component="i" color="primary" fontSize="14px" className="ni ni-tv-2" />,
@@ -303,7 +305,7 @@ const routes = [
         key: "donations",
         route: "/donations",
         icon: <ArgonBox component="i" color="warning" fontSize="14px" className="ni ni-books" />,
-        component: "",
+        component: <IndexDonation />,
       }
     : {
         route: "/authentication/sign-in",
@@ -318,34 +320,34 @@ const routes = [
         component: <SignIn />,
       },
 
-  sessionStorage.getItem("token")
-    ? {
-        type: "route",
-        name: "Lista de apdrinamiento",
-        key: "apadra",
-        route: "/apadra",
-        icon: (
-          <ArgonBox
-            component="i"
-            color="warning"
-            fontSize="14px"
-            className="ni ni-calendar-grid-58"
-          />
-        ),
-        component: "",
-      }
-    : {
-        route: "/authentication/sign-in",
-        icon: (
-          <ArgonBox
-            component="i"
-            color="warning"
-            fontSize="14px"
-            className="ni ni-single-copy-04"
-          />
-        ),
-        component: <SignIn />,
-      },
+  // sessionStorage.getItem("token")
+  //   ? {
+  //       type: "route",
+  //       name: "Lista de apdarinamiento",
+  //       key: "apadra",
+  //       route: "/apadra",
+  //       icon: (
+  //         <ArgonBox
+  //           component="i"
+  //           color="warning"
+  //           fontSize="14px"
+  //           className="ni ni-calendar-grid-58"
+  //         />
+  //       ),
+  //       component: "",
+  //     }
+  //   : {
+  //       route: "/authentication/sign-in",
+  //       icon: (
+  //         <ArgonBox
+  //           component="i"
+  //           color="warning"
+  //           fontSize="14px"
+  //           className="ni ni-single-copy-04"
+  //         />
+  //       ),
+  //       component: <SignIn />,
+  //     },
   sessionStorage.getItem("token")
     ? {
         type: "route",
@@ -360,7 +362,7 @@ const routes = [
             className="ni ni-calendar-grid-58"
           />
         ),
-        component: "",
+        component: <IndexContact />,
       }
     : {
         route: "/authentication/sign-in",

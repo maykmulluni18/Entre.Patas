@@ -121,32 +121,33 @@ function ViewMascota() {
 
   const questions = [
     {
-      id: 31,
+      id: 1,
       question:
         "¿Por qué estás interesado en adoptar una mascota en este momento?",
       options: [
+        { label: "Para tener un compañero de ejercicio", points: 1 },
         { label: "Quiero compañía y afecto", points: 3 },
         { label: "Para enseñar responsabilidad a mis hijos", points: 2 },
-        { label: "Para tener un compañero de ejercicio", points: 1 },
       ],
     },
     {
-      id: 32,
+      id: 2,
       question:
         "¿Tienes alguna experiencia previa en la adopción o cuidado de mascotas?",
       options: [
-        { label: "Sí, he tenido mascotas antes", points: 3 },
-        { label: "No, esta sería mi primera mascota", points: 2 },
         { label: "He cuidado mascotas de amigos o familiares", points: 1 },
+        { label: "No, esta sería mi primera mascota", points: 2 },
+        { label: "Sí, he tenido mascotas antes", points: 3 },
       ],
     },
     {
-      id: 33,
+      id: 3,
       question:
         "¿Qué tipo de mascota estás buscando (perro, gato, otro)? ¿Por qué?",
       options: [
-        { label: "Perro, son leales y activos", points: 3 },
         { label: "Gato, son independientes y tranquilos", points: 2 },
+
+        { label: "Perro, son leales y activos", points: 3 },
         {
           label: "Otro, tengo preferencias específicas por otras especies",
           points: 1,
@@ -154,65 +155,68 @@ function ViewMascota() {
       ],
     },
     {
-      id: 34,
+      id: 4,
       question: "¿Cuántas horas al día puedes dedicarle a tu mascota?",
       options: [
         { label: "Menos de 1 hora", points: 1 },
-        { label: "Entre 1 y 3 horas", points: 2 },
         { label: "Más de 3 horas", points: 3 },
+        { label: "Entre 1 y 3 horas", points: 2 },
       ],
     },
     {
-      id: 35,
+      id: 5,
       question: "¿Qué tipo de espacio tienes en tu hogar para la mascota?",
       options: [
-        { label: "Casa con jardín", points: 3 },
-        { label: "Apartamento pequeño", points: 2 },
         { label: "Otro tipo de vivienda", points: 1 },
+        { label: "Apartamento pequeño", points: 2 },
+
+        { label: "Casa con jardín", points: 3 },
       ],
     },
     {
-      id: 36,
+      id: 6,
       question: "¿Cómo planeas ejercitar y socializar a tu mascota?",
       options: [
-        { label: "Paseos diarios y visitas al parque", points: 3 },
         {
           label: "Juegos en casa y citas con otros dueños de mascotas",
           points: 2,
         },
         { label: "Otra actividad específica", points: 1 },
+        { label: "Paseos diarios y visitas al parque", points: 3 },
       ],
     },
     {
-      id: 37,
+      id: 7,
       question:
         "¿Estás dispuesto/a a comprometerte con los gastos veterinarios y cuidados médicos de la mascota?",
       options: [
-        { label: "Sí, estoy preparado/a para asumir esos gastos", points: 3 },
         { label: "Dependerá del costo de los cuidados médicos", points: 2 },
+
+        { label: "Sí, estoy preparado/a para asumir esos gastos", points: 3 },
         { label: "No estoy seguro/a de poder costear esos gastos", points: 1 },
       ],
     },
     {
-      id: 38,
+      id: 8,
       question:
         "¿Tienes niños en casa? ¿Cómo crees que la nueva mascota se adaptará a ellos?",
       options: [
+        { label: "No estoy seguro/a de cómo reaccionarán", points: 1 },
+
         { label: "Sí, creo que se llevarán bien", points: 3 },
         { label: "No, no tengo niños en casa", points: 2 },
-        { label: "No estoy seguro/a de cómo reaccionarán", points: 1 },
       ],
     },
     {
-      id: 39,
+      id: 9,
       question:
         "¿Qué harías si la mascota presenta algún comportamiento no deseado?",
       options: [
+        { label: "Intentaría corregirlo por mi cuenta", points: 2 },
         {
           label: "Buscaría ayuda profesional de un entrenador de mascotas",
           points: 3,
         },
-        { label: "Intentaría corregirlo por mi cuenta", points: 2 },
         {
           label: "No estoy seguro/a de cómo manejaría esa situación",
           points: 1,
@@ -220,12 +224,12 @@ function ViewMascota() {
       ],
     },
     {
-      id: 40,
+      id: 10,
       question:
         "¿Qué expectativas tienes sobre la relación con tu nueva mascota?",
       options: [
-        { label: "Quiero establecer un vínculo cercano y duradero", points: 3 },
         { label: "Busco una compañía ocasional", points: 2 },
+        { label: "Quiero establecer un vínculo cercano y duradero", points: 3 },
         { label: "No tengo expectativas claras", points: 1 },
       ],
     },
