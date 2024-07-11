@@ -30,7 +30,6 @@ Route::post('logout', [UserController::class, 'logout'])->middleware('auth:sanct
 
 Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
-
 });
 
 //Route::get('oficios/list/', [OficioController::class, 'indexInforme'])->name('oficios.indexInforme');
