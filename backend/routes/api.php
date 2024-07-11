@@ -28,30 +28,8 @@ Route::post('register', [UserController::class, 'register'])->name('register.reg
 Route::post('login', [UserController::class, 'login'])->name('login:login');
 Route::post('logout', [UserController::class, 'logout'])->middleware('auth:sanctum');
 
-Route::middleware(['auth:sanctum'])->group(function () {
-    Route::get('tipos_mascotas', [PetTypeController::class, 'index'])->name('tipos_mascotas.index');
-    Route::get('show_tipos_mascotas/{id}', [PetTypeController::class, 'show'])->name('show_tipos_mascotas.show');
-    Route::post('tipos_mascotas', [PetTypeController::class, 'create'])->name('tipos_mascotas.create');
-    Route::put('tipos_mascotas/{id}', [PetTypeController::class, 'update'])->name('tipos_mascotas.update');
-    Route::patch('tipos_mascotas/disable/{id}', [PetTypeController::class, 'disable'])->name('tipos_mascotas.disable');
-    Route::patch('tipos_mascotas/enable/{id}', [PetTypeController::class, 'enable'])->name('tipos_mascotas.enable');
-
-    Route::get('tipos_razas', [TypeRaceController::class, 'index'])->name('tipos_razas.index');
-    Route::get('show_tipos_razas/{id}', [TypeRaceController::class, 'show'])->name('show_tipos_razas.show');
-    Route::post('tipos_razas', [TypeRaceController::class, 'create'])->name('tipos_razas.create');
-    Route::put('tipos_razas/{id}', [TypeRaceController::class, 'update'])->name('tipos_razas.update');
-    Route::patch('tipos_razas/disable/{id}', [TypeRaceController::class, 'disable'])->name('tipos_razas.disable');
-    Route::patch('tipos_razas/enable/{id}', [TypeRaceController::class, 'enable'])->name('tipos_razas.enable');
-    Route::get('list_tipos_razas_enable', [TypeRaceController::class, 'listEnableTypeRace'])->name('list_tipos_razas_enable.listEnableTypeRace');
-
-    Route::get('mascotas', [PetController::class, 'index'])->name('mascotas.index');
-    Route::get('show_mascotas/{id}', [PetController::class, 'show'])->name('show_mascotas.show');
-    Route::post('mascotas', [PetController::class, 'create'])->name('mascotas.create');
-    Route::post('mascotas/{id}', [PetController::class, 'update'])->name('mascotas.update');
-    Route::patch('mascotas/disable/{id}', [PetController::class, 'disable'])->name('mascotas.disable');
-    Route::patch('mascotas/enable/{id}', [PetController::class, 'enable'])->name('mascotas.enable');
-    Route::patch('state_mascotas/{id}', [PetController::class, 'updateState'])->name('state_mascotas.updateState');
-
+Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
+    return $request->user();
 
 });
 
@@ -70,10 +48,23 @@ Route::post('questionsAditions', [QuestionnaireController::class, 'create'])->na
 Route::get('list_tipos_mascotas_enable', [PetTypeController::class, 'listEnableTypePet'])->name('list_tipos_mascotas_enable.listEnableTypePet');
 
 
+Route::get('tipos_razas', [TypeRaceController::class, 'index'])->name('tipos_razas.index');
+Route::get('show_tipos_razas/{id}', [TypeRaceController::class, 'show'])->name('show_tipos_razas.show');
+Route::post('tipos_razas', [TypeRaceController::class, 'create'])->name('tipos_razas.create');
+Route::put('tipos_razas/{id}', [TypeRaceController::class, 'update'])->name('tipos_razas.update');
+Route::patch('tipos_razas/disable/{id}', [TypeRaceController::class, 'disable'])->name('tipos_razas.disable');
+Route::patch('tipos_razas/enable/{id}', [TypeRaceController::class, 'enable'])->name('tipos_razas.enable');
+Route::get('list_tipos_razas_enable', [TypeRaceController::class, 'listEnableTypeRace'])->name('list_tipos_razas_enable.listEnableTypeRace');
 
 
-
+Route::get('mascotas', [PetController::class, 'index'])->name('mascotas.index');
+Route::get('show_mascotas/{id}', [PetController::class, 'show'])->name('show_mascotas.show');
+Route::post('mascotas', [PetController::class, 'create'])->name('mascotas.create');
+Route::post('mascotas/{id}', [PetController::class, 'update'])->name('mascotas.update');
+Route::patch('mascotas/disable/{id}', [PetController::class, 'disable'])->name('mascotas.disable');
+Route::patch('mascotas/enable/{id}', [PetController::class, 'enable'])->name('mascotas.enable');
 Route::get('list_mascotas_enable', [PetController::class, 'listEnablePet'])->name('list_mascotas_enable.listEnablePet');
+Route::patch('state_mascotas/{id}', [PetController::class, 'updateState'])->name('state_mascotas.updateState');
 
 //Route::get('mascotas/search/{name}', [PetController::class, 'searchByName'])->name('mascotas.searchByName');
 Route::get('contacts', [ContactController::class, 'index'])->name('contacts.index');
