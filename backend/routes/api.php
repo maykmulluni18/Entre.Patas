@@ -44,6 +44,12 @@ Route::post('userAditions', [UserAdoptionSponsorshipController::class, 'create']
 Route::post('questionsAditions', [QuestionnaireController::class, 'create'])->name('questionsAditions.create');
 
 
+Route::get('tipos_mascotas', [PetTypeController::class, 'index'])->name('tipos_mascotas.index');
+Route::get('show_tipos_mascotas/{id}', [PetTypeController::class, 'show'])->name('show_tipos_mascotas.show');
+Route::post('tipos_mascotas', [PetTypeController::class, 'create'])->name('tipos_mascotas.create');
+Route::put('tipos_mascotas/{id}', [PetTypeController::class, 'update'])->name('tipos_mascotas.update');
+Route::patch('tipos_mascotas/disable/{id}', [PetTypeController::class, 'disable'])->name('tipos_mascotas.disable');
+Route::patch('tipos_mascotas/enable/{id}', [PetTypeController::class, 'enable'])->name('tipos_mascotas.enable');
 Route::get('list_tipos_mascotas_enable', [PetTypeController::class, 'listEnableTypePet'])->name('list_tipos_mascotas_enable.listEnableTypePet');
 
 
