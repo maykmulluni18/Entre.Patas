@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Pet;
 use Illuminate\Http\Request;
 use App\Models\Adoption;
 use Illuminate\Support\Facades\DB;
@@ -23,7 +24,9 @@ class AdoptionController extends Controller
                 aas.user_adop_spon_id,
                 aas.date AS fecha_Adop,
                 pts.name AS name_mascota,
-                pty.name AS type_name_masc
+                pty.name AS type_name_masc,
+                pts.state,
+                pts.id AS idMascota
             FROM
                 adoptions aas
             INNER JOIN
@@ -100,6 +103,42 @@ class AdoptionController extends Controller
 
 
             return response()->json(['message' => 'TypeRace enabled successfully'], 200);
+        } catch (\Exception $e) {
+            return response()->json(['message' => $e->getMessage()], 500);
+        }
+    }
+
+    public function cancelAdoption($id)
+    {
+        try {
+
+            // Buscar la mascota por su ID
+            $pet = Pet::findOrFail($id);
+
+            // Actualizar solo el estado
+            $pet->state = 'No Adoptado'; // Asignar directamente el valor 'Adoptado'
+            $pet->save();
+
+            return response()->json(['message' => 'state updated successfully', 'pet' => $pet], 201);
+
+        } catch (\Exception $e) {
+            return response()->json(['message' => $e->getMessage()], 500);
+        }
+    }
+
+    public function habilitarAdoption($id)
+    {
+        try {
+
+            // Buscar la mascota por su ID
+            $pet = Pet::findOrFail($id);
+
+            // Actualizar solo el estado
+            $pet->state = 'Adoptado'; // Asignar directamente el valor 'Adoptado'
+            $pet->save();
+
+            return response()->json(['message' => 'state updated successfully', 'pet' => $pet], 201);
+
         } catch (\Exception $e) {
             return response()->json(['message' => $e->getMessage()], 500);
         }

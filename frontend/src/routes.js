@@ -57,6 +57,7 @@ import FromIndexMascota from "views/vistasAdmin/mascotas/FromIndexMascota";
 import IndexAdopcion from "views/vistasAdmin/adopciones/IndexAdopcion";
 import IndexContact from "views/vistasAdmin/contact/IndexContact";
 import IndexDonation from "views/vistasAdmin/donations/IndexDonation";
+import IndexLoss from "views/vistasAdmin/loss/IndexLoss";
 
 const routes = [
   // {
@@ -284,6 +285,35 @@ const routes = [
             component: <FromIndexTR />,
           },
         ],
+      }
+    : {
+        route: "/authentication/sign-in",
+        icon: (
+          <ArgonBox
+            component="i"
+            color="warning"
+            fontSize="14px"
+            className="ni ni-single-copy-04"
+          />
+        ),
+        component: <SignIn />,
+      },
+
+  sessionStorage.getItem("token")
+    ? {
+        type: "route",
+        name: "Lista de Perdidas de Mascota",
+        key: "loss",
+        route: "/loss",
+        icon: (
+          <ArgonBox
+            component="i"
+            color="warning"
+            fontSize="14px"
+            className="ni ni-single-copy-04"
+          />
+        ),
+        component: <IndexLoss />,
       }
     : {
         route: "/authentication/sign-in",

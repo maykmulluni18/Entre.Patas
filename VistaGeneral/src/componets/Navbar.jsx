@@ -1,10 +1,8 @@
-import ImgPortada from "./petImg.jpg";
+import ImgPortada from "./Fondo1.png";
 
 const Navbar = () => {
-
   return (
     <div className="w-full">
-   
       <div className="flex bg-white" style={{ height: "600px" }}>
         <div className="flex items-center text-center lg:text-left px-8 md:px-12 lg:w-1/2">
           <div>
@@ -48,6 +46,8 @@ const Navbar = () => {
             className="h-full object-cover"
             style={{
               backgroundImage: `url(${ImgPortada})`,
+              height: "1100px", // Ajusta la altura aquí
+              width: "900px",
             }}
           >
             <div className="h-full bg-black opacity-25"></div>

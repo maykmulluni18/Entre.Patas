@@ -60,6 +60,7 @@ const Contact = () => {
         </div>
       </div>
       <div>
+        
         <div className=" w-full  justify-center min-h-screen bg-white dark:bg-gray-800 sm:items-center">
           <div className="">
             <div>

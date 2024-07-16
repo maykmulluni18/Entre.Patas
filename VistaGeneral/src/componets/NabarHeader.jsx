@@ -53,7 +53,14 @@ const NabarHeader = () => {
                   Donar
                 </a>{" "}
               </Link>
-
+              <Link to={`/perdida-mascota`}>
+                <a
+                  href="#"
+                  className="text-gray-800 rounded hover:bg-gray-900 hover:text-gray-100 hover:font-medium py-2 px-2 md:mx-2"
+                >
+                  Reportar Perdida Mascotas
+                </a>
+              </Link>
               <Link to={`/contact`}>
                 <a
                   href="#"
@@ -62,6 +69,15 @@ const NabarHeader = () => {
                   Contactanos
                 </a>
               </Link>
+              <Link to={`/login`}>
+                <a
+                  href="#"
+                  className="text-gray-800 rounded hover:bg-gray-900 hover:text-gray-100 hover:font-medium py-2 px-2 md:mx-2"
+                >
+                  Login
+                </a>
+              </Link>
+              {/* dasboard */}
             </div>
           </div>
         </nav>

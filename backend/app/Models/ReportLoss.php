@@ -4,11 +4,13 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use App\Traits\UUID;
 
 class ReportLoss extends Model
 {
-    use HasFactory;
+    use HasFactory, UUID;
     protected $fillable = [
+        'imagen',
         'name',
         'age',
         'sex',
@@ -16,7 +18,7 @@ class ReportLoss extends Model
         'description',
         'date_end',
         'state',
-        'number',
+        'telefono',
         'low'
 
     ];

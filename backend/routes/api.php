@@ -7,6 +7,7 @@ use App\Http\Controllers\DonationController;
 use App\Http\Controllers\PetController;
 use App\Http\Controllers\PetTypeController;
 use App\Http\Controllers\QuestionnaireController;
+use App\Http\Controllers\ReportLossController;
 use App\Http\Controllers\TypeRaceController;
 use App\Http\Controllers\UserAdoptionSponsorshipController;
 use App\Http\Controllers\UserController;
@@ -71,6 +72,17 @@ Route::patch('mascotas/enable/{id}', [PetController::class, 'enable'])->name('ma
 Route::get('list_mascotas_enable', [PetController::class, 'listEnablePet'])->name('list_mascotas_enable.listEnablePet');
 Route::patch('state_mascotas/{id}', [PetController::class, 'updateState'])->name('state_mascotas.updateState');
 
+Route::get('report_loss', [ReportLossController::class, 'index'])->name('report_loss.index');
+Route::post('report_loss', [ReportLossController::class, 'create'])->name('report_loss.create');
+Route::get('report_loss/{id}', [ReportLossController::class, 'show'])->name('report_loss.show');
+Route::put('report_loss/{id}', [ReportLossController::class, 'update'])->name('report_loss.update');
+Route::patch('report_loss/disable/{id}', [ReportLossController::class, 'disable'])->name('report_loss.disable');
+Route::patch('report_loss/enable/{id}', [ReportLossController::class, 'enable'])->name('report_loss.enable');
+Route::patch('report_loss/state/{id}', [ReportLossController::class, 'updateState'])->name('report_loss.updateState');
+Route::get('report_loss_enable', [ReportLossController::class, 'listEnable'])->name('report_loss_enable.listEnable');
+
+
+
 //Route::get('mascotas/search/{name}', [PetController::class, 'searchByName'])->name('mascotas.searchByName');
 Route::get('contacts', [ContactController::class, 'index'])->name('contacts.index');
 Route::post('contacts', [ContactController::class, 'create'])->name('contacts.create');
@@ -90,6 +102,14 @@ Route::get('adoptions', [AdoptionController::class, 'index'])->name('adoptions.i
 //donation
 Route::get('donations', [DonationController::class, 'index'])->name('donations.index');
 Route::post('donations', [DonationController::class, 'create'])->name('donations.create');
+Route::patch('pets_cancel_adoption/{id}',[AdoptionController::class, 'cancelAdoption'])->name('pets_cancel_adoption.cancelAdoption');
+Route::patch('pets_habilitar_adoption/{id}',[AdoptionController::class, 'habilitarAdoption'])->name('pets_habilitar_adoption.habilitarAdoption');
+
+Route::post('loginUsers', [UserAdoptionSponsorshipController::class, 'loginUsers'])->name('loginUsers.loginUsers');
+
+//habilitarAdoption
+//loginUsers
+
 // Route::get('donations/{id}', [DonationController::class, 'show'])->name('donations.show');
 // Route::put('donations/{id}', [DonationController::class, 'update'])->name('donations.update');
 // Route::patch('donations/{id}', [DonationController::class, 'destroy'])->name('donations.destroy');

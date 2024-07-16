@@ -124,10 +124,10 @@ const ViewAdop = () => {
           console.log(response.data);
           Swal.fire({
             title: "Adoptado con exito",
-            text: "Contactese con nosotros para el tramite Correspondiente",
+            text: "Puede Iniciar session",
             icon: "success",
           });
-          navigate("/");
+          navigate("/login");
         }
       }
     } catch (error) {

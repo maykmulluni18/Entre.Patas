@@ -10,20 +10,14 @@ import { Button } from "primereact/button";
 import { Link } from "react-router-dom";
 import { Tag } from "primereact/tag";
 import axios from "axios";
-import {
-  apiAdoptionUsers,
-  enableApiMascota,
-  disableApiMascota,
-  cancelAdoption,
-  habilitarAdoption,
-} from "config/api";
+import { apiLoss, enableApiLoss, disableApiLoss } from "config/api";
 // Data
-const VerAdopcion = () => {
+const VerLoss = () => {
   const [listData, setListData] = useState([]);
 
   async function getlistData() {
     try {
-      const response = await axios.get(apiAdoptionUsers);
+      const response = await axios.get(apiLoss);
       console.log(response.data.data);
       if (response.status === 200) {
         setListData(response.data.data);
@@ -47,56 +41,29 @@ const VerAdopcion = () => {
     );
   };
 
-  async function cancelFunction(rowData) {
+  async function enableFunction(rowData) {
     console.log(rowData);
     try {
-      const response = await axios.patch(`${cancelAdoption}/${rowData}`);
+      const response = await axios.patch(`${enableApiLoss}${rowData}`, { low: 1 });
       console.log(response);
-      if (response.status === 201) {
+      if (response.status === 200) {
         getlistData();
       }
     } catch (error) {
       console.error("Error:", error);
     }
   }
-
-  async function habilitarFunction(rowData) {
-    console.log(rowData);
+  async function disableFunction(rowData) {
     try {
-      const response = await axios.patch(`${habilitarAdoption}/${rowData}`);
-      console.log(response);
-      if (response.status === 201) {
+      const response = await axios.patch(`${disableApiLoss}${rowData}`, { low: 0 });
+      if (response.status === 200) {
+        console.log(response);
         getlistData();
       }
     } catch (error) {
       console.error("Error:", error);
     }
   }
-
-  // async function enableFunction(rowData) {
-  //   console.log(rowData);
-  //   try {
-  //     const response = await axios.patch(`${enableApiMascota}${rowData}`, { low: 1 });
-  //     console.log(response);
-  //     if (response.status === 200) {
-  //       getlistData();
-  //     }
-  //   } catch (error) {
-  //     console.error("Error:", error);
-  //   }
-  // }
-
-  // async function disableFunction(rowData) {
-  //   try {
-  //     const response = await axios.patch(`${disableApiMascota}${rowData}`, { low: 0 });
-  //     if (response.status === 200) {
-  //       console.log(response);
-  //       getlistData();
-  //     }
-  //   } catch (error) {
-  //     console.error("Error:", error);
-  //   }
-  // }
 
   const actionBodyTemplate = (rowData) => {
     console.log(rowData);
@@ -113,23 +80,23 @@ const VerAdopcion = () => {
                 className="p-button p-button-success p-mr-2"
               />
             </Link>
-          </div>
+          </div> */}
           <div>
             <p style={{ color: "white" }}>-</p>
-          </div> */}
+          </div>
           <div className="">
             {" "}
-            {rowData.state === "Adoptado" ? (
+            {rowData.low === 1 ? (
               <Button
-                label="Cancelar"
+                label="Deshabilitar"
                 style={{ background: "#C70039" }}
-                onClick={() => cancelFunction(rowData.idMascota)}
+                onClick={() => disableFunction(rowData.id)}
               />
             ) : (
               <Button
                 label="Habilitar"
                 style={{ background: "#344767" }}
-                onClick={() => habilitarFunction(rowData.idMascota)}
+                onClick={() => enableFunction(rowData.id)}
               />
             )}
           </div>
@@ -141,8 +108,8 @@ const VerAdopcion = () => {
   const renderStatusTag = (rowData) => {
     return (
       <Tag
-        value={rowData.state === "Adoptado" ? "Adoptado" : "No Adoptado"}
-        style={{ background: rowData.state === "Adoptado" ? "#344767" : "#C70039" }}
+        value={rowData.low === 1 ? "Activo" : "Deshabilitado"}
+        style={{ background: rowData.low === 1 ? "#344767" : "#C70039" }}
       />
     );
   };
@@ -184,7 +151,7 @@ const VerAdopcion = () => {
         </ArgonBox>
         <Card>
           <ArgonBox display="flex" justifyContent="space-between" alignItems="center" p={3}>
-            <ArgonTypography variant="h6">Lista de Adopciones</ArgonTypography>
+            <ArgonTypography variant="h6">Lista de Perdida de Mascotas</ArgonTypography>
           </ArgonBox>
           <ArgonBox
             sx={{
@@ -205,34 +172,16 @@ const VerAdopcion = () => {
                 rowsPerPageOptions={[5, 10, 25, 50]}
                 tableStyle={{ minWidth: "50rem" }}
               >
-                <Column field="" header="" style={{ width: "2%" }}></Column>
+                <Column body={renderImage} header="Imagen" style={{ width: "10%" }}></Column>
                 {/* <Column field="id" header="ID" style={{ width: "25%" }}></Column> */}
-                <Column
-                  field="name"
-                  header="Nombre del Adoptante"
-                  style={{ width: "25%" }}
-                ></Column>
-                <Column field="fullname" header="Apellidos" style={{ width: "5%" }}></Column>
-                <Column field="email" header="Correo" style={{ width: "35%" }}></Column>
-                <Column field="phone" header="Telefono" style={{ width: "25%" }}></Column>
+                <Column field="name" header="Nombre de Mascota" style={{ width: "25%" }}></Column>
+                <Column field="sex" header="Sexo" style={{ width: "8%" }}></Column>
+                <Column field="color" header="Color" style={{ width: "8%" }}></Column>
+                <Column field="description" header="Descripcion" style={{ width: "35%" }}></Column>
+                <Column field="state" header="Estado" style={{ width: "35%" }}></Column>
 
-                <Column
-                  field="type_name_masc"
-                  header="Tipo Mascota"
-                  style={{ width: "25%" }}
-                ></Column>
-
-                <Column
-                  field="name_mascota"
-                  header="Nombre Mascota"
-                  style={{ width: "25%" }}
-                ></Column>
-                <Column
-                  body={renderStatusTag}
-                  header="Estado de Adopcion"
-                  style={{ width: "30%" }}
-                ></Column>
-                <Column body={actionBodyTemplate} header="Actions" style={{ width: "25%" }} />
+                <Column body={renderStatusTag} header="Estado" style={{ width: "25%" }}></Column>
+                <Column body={actionBodyTemplate} header="Aciones" style={{ width: "25%" }} />
               </DataTable>
             </div>
           </ArgonBox>
@@ -243,4 +192,4 @@ const VerAdopcion = () => {
   );
 };
 
-export default VerAdopcion;
+export default VerLoss;
