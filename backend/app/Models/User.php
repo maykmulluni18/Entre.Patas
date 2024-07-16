@@ -23,6 +23,7 @@ class User extends Authenticatable
         'email',
         'password',
         'low',
+        'user_adoption_id',
         'type'
     ];
 

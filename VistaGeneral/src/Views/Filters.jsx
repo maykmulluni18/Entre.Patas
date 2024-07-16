@@ -196,84 +196,169 @@ const Filters = () => {
   //   );
   // };
 
+  const containerStyle = {
+    cursor: "pointer",
+    position: "fixed",
+    display: "flex",
+    width: "100%",
+    height: "100px",
+    justifyContent: "center",
+    background: "rgba(30, 30, 30, 0.9)",
+    bottom: "0px",
+    zIndex: 100000,
+    transition: "all 1s ease 0s",
+    left: "0px",
+  };
+
+  const closeButtonStyle = {
+    right: "5px",
+    top: "5px",
+    width: "25px",
+    cursor: "pointer",
+    minWidth: "auto",
+    height: "25px",
+    position: "absolute",
+    zIndex: 99,
+    margin: "0px",
+  };
+
+  const shadowStyle = {
+    position: "absolute",
+    width: "100%",
+    height: "100%",
+    boxShadow: "rgba(0, 0, 0, 0.3) 0px -180px 100px -110px inset",
+    zIndex: 9,
+  };
+
+  const arrowContainerStyle = {
+    position: "absolute",
+    display: "flex",
+    justifyContent: "center",
+    top: "0px",
+    zIndex: 15,
+    width: "30vw",
+    minWidth: "auto",
+    height: "5vh",
+    maxHeight: "5vh",
+  };
+
+  const arrowImageStyle = {
+    top: "5px",
+    height: "1.8vh",
+    maxHeight: "1.8vh",
+    width: "auto",
+    minWidth: "auto",
+    position: "absolute",
+    zIndex: 40,
+    transition: "all 1s ease 0s",
+    transform: "rotate(180deg)",
+  };
+
+  const iframeStyle = {
+    bottom: "0px",
+    left: "0px",
+    width: "100%",
+    position: "relative",
+    height: "100%",
+    transition: "all 1s ease 0s",
+    border: "none",
+  };
+
+  const logoStyle = {
+    left: "10px",
+    top: "10px",
+    width: "15px",
+    minWidth: "auto",
+    position: "absolute",
+    zIndex: 4500,
+    margin: "0px",
+  };
+
+  const [showFooter, setShowFooter] = useState(true);
+
+  const handleClose = () => {
+    setShowFooter(false);
+  };
+
   return (
-    <div className="bg-white">
-      <div>
-        <main className="mx-auto max-w-1xl px-4 py-16 sm:px-2 sm:py-12 lg:max-w-7xl lg:px-8">
-          <div className="border-b border-gray-200 pb-10">
-            <h1 className="text-4xl font-bold tracking-tight text-gray-900 text-center">
-              Lista de Mascotas
-            </h1>
-            <p className="mt-4 text-base text-gray-500 text-center">
-              Ayuda en adoptar una Mascota
-            </p>
-          </div>
+    <>
+      <div className="bg-white">
+        <div>
+          <main className="mx-auto max-w-1xl px-4 py-16 sm:px-2 sm:py-12 lg:max-w-7xl lg:px-8">
+            <div className="border-b border-gray-200 pb-10">
+              <h1 className="text-4xl font-bold tracking-tight text-gray-900 text-center">
+                Lista de Mascotas
+              </h1>
+              <p className="mt-4 text-base text-gray-500 text-center">
+                Ayuda en adoptar una Mascota
+              </p>
+            </div>
 
-          <div className="pt-12 lg:grid lg:grid-cols-12 lg:gap-x-8">
-            <aside className="hidden lg:block lg:col-span-3">
-              <h2 className="sr-only">Filters</h2>
+            <div className="pt-12 lg:grid lg:grid-cols-12 lg:gap-x-8">
+              <aside className="hidden lg:block lg:col-span-3">
+                <h2 className="sr-only">Filters</h2>
 
-              <form className="space-y-10 divide-y divide-gray-200">
-                <div>
-                  <fieldset>
-                    <legend className="block text-sm font-medium text-gray-900">
-                      Tipo de Mascota:{" "}
-                    </legend>
+                <form className="space-y-10 divide-y divide-gray-200">
+                  <div>
+                    <fieldset>
+                      <legend className="block text-sm font-medium text-gray-900">
+                        Tipo de Mascota:{" "}
+                      </legend>
 
-                    <div className="space-y-3 pt-6">
-                      {petNames.map((name, index) => (
-                        <div className="flex items-center" key={index}>
-                          <input
-                            id={`color-${index}`}
-                            name="color[]"
-                            type="checkbox"
-                            value={name}
-                            className="h-4 w-4 rounded border-gray-300 text-indigo-600 focus:ring-indigo-500"
-                            onChange={handleFilterChange(
-                              setSelectedTipoMascota
-                            )}
-                            checked={selectedTipoMascota.includes(name)}
-                          />
-                          <label
-                            htmlFor={`color-${index}`}
-                            className="ml-3 text-sm text-gray-600"
-                          >
-                            {name.charAt(0).toUpperCase() + name.slice(1)}
-                          </label>
-                        </div>
-                      ))}
-                    </div>
-                  </fieldset>
-                </div>
-                <div className="pt-10">
-                  <fieldset>
-                    <legend className="block text-sm font-medium text-gray-900">
-                      Tipo de Raza
-                    </legend>
-                    <div className="space-y-3 pt-6">
-                      {petRace.map((name, index) => (
-                        <div className="flex items-center" key={index}>
-                          <input
-                            id={`types-${index}`}
-                            name="color[]"
-                            type="checkbox"
-                            value={name}
-                            className="h-4 w-4 rounded border-gray-300 text-indigo-600 focus:ring-indigo-500"
-                            onChange={handleFilterChange(setSelectedTipoRaza)}
-                            checked={selectedTipoRaza.includes(name)}
-                          />
-                          <label
-                            htmlFor={`color-${index}`}
-                            className="ml-3 text-sm text-gray-600"
-                          >
-                            {name.charAt(0).toUpperCase() + name.slice(1)}
-                          </label>
-                        </div>
-                      ))}
-                    </div>
-                  </fieldset>
-                </div>
-                <div className="pt-10">
+                      <div className="space-y-3 pt-6">
+                        {petNames.map((name, index) => (
+                          <div className="flex items-center" key={index}>
+                            <input
+                              id={`color-${index}`}
+                              name="color[]"
+                              type="checkbox"
+                              value={name}
+                              className="h-4 w-4 rounded border-gray-300 text-indigo-600 focus:ring-indigo-500"
+                              onChange={handleFilterChange(
+                                setSelectedTipoMascota
+                              )}
+                              checked={selectedTipoMascota.includes(name)}
+                            />
+                            <label
+                              htmlFor={`color-${index}`}
+                              className="ml-3 text-sm text-gray-600"
+                            >
+                              {name.charAt(0).toUpperCase() + name.slice(1)}
+                            </label>
+                          </div>
+                        ))}
+                      </div>
+                    </fieldset>
+                  </div>
+                  <div className="pt-10">
+                    <fieldset>
+                      <legend className="block text-sm font-medium text-gray-900">
+                        Tipo de Raza
+                      </legend>
+                      <div className="space-y-3 pt-6">
+                        {petRace.map((name, index) => (
+                          <div className="flex items-center" key={index}>
+                            <input
+                              id={`types-${index}`}
+                              name="color[]"
+                              type="checkbox"
+                              value={name}
+                              className="h-4 w-4 rounded border-gray-300 text-indigo-600 focus:ring-indigo-500"
+                              onChange={handleFilterChange(setSelectedTipoRaza)}
+                              checked={selectedTipoRaza.includes(name)}
+                            />
+                            <label
+                              htmlFor={`color-${index}`}
+                              className="ml-3 text-sm text-gray-600"
+                            >
+                              {name.charAt(0).toUpperCase() + name.slice(1)}
+                            </label>
+                          </div>
+                        ))}
+                      </div>
+                    </fieldset>
+                  </div>
+                  {/* <div className="pt-10">
                   <fieldset>
                     <legend className="block text-sm font-medium text-gray-900">
                       Edad
@@ -300,124 +385,192 @@ const Filters = () => {
                       ))}
                     </div>
                   </fieldset>
+                </div> */}
+
+                  <div className="pt-10">
+                    <fieldset>
+                      <legend className="block text-sm font-medium text-gray-900">
+                        Sexo
+                      </legend>
+                      <div className="space-y-3 pt-6">
+                        {petSexo.map((name, index) => (
+                          <div className="flex items-center" key={index}>
+                            <input
+                              id={`sexo-${index}`}
+                              name="sexo[]"
+                              type="checkbox"
+                              value={name}
+                              className="h-4 w-4 rounded border-gray-300 text-indigo-600 focus:ring-indigo-500"
+                              onChange={handleFilterChange(setSelectedSexo)}
+                              checked={selectedSexo.includes(name)}
+                            />
+                            <label
+                              htmlFor={`sexo-${index}`}
+                              className="ml-3 text-sm text-gray-600"
+                            >
+                              {name}
+                            </label>
+                          </div>
+                        ))}
+                      </div>
+                    </fieldset>
+                  </div>
+
+                  <div className="pt-10">
+                    <fieldset>
+                      <legend className="block text-sm font-medium text-gray-900">
+                        Peso
+                      </legend>
+                      <div className="space-y-3 pt-6">
+                        {petPeso.map((name, index) => (
+                          <div className="flex items-center" key={index}>
+                            <input
+                              id={`peso-${index}`}
+                              name="peso[]"
+                              type="checkbox"
+                              value={name}
+                              className="h-4 w-4 rounded border-gray-300 text-indigo-600 focus:ring-indigo-500"
+                              onChange={handleFilterChange(setSelectedPeso)}
+                              checked={selectedPeso.includes(name)}
+                            />
+                            <label
+                              htmlFor={`peso-${index}`}
+                              className="ml-3 text-sm text-gray-600"
+                            >
+                              {name}
+                            </label>
+                          </div>
+                        ))}
+                      </div>
+                    </fieldset>
+                  </div>
+
+                  <div className="pt-10">
+                    <fieldset>
+                      <legend className="block text-sm font-medium text-gray-900">
+                        Tamaño
+                      </legend>
+                      <div className="space-y-3 pt-6">
+                        {petTamanio.map((name, index) => (
+                          <div className="flex items-center" key={index}>
+                            <input
+                              id={`tamanio-${index}`}
+                              name="tamanio[]"
+                              type="checkbox"
+                              value={name}
+                              className="h-4 w-4 rounded border-gray-300 text-indigo-600 focus:ring-indigo-500"
+                              onChange={handleFilterChange(setSelectedTamanio)}
+                              checked={selectedTamanio.includes(name)}
+                            />
+                            <label
+                              htmlFor={`tamanio-${index}`}
+                              className="ml-3 text-sm text-gray-600"
+                            >
+                              {name}
+                            </label>
+                          </div>
+                        ))}
+                      </div>
+                    </fieldset>
+                  </div>
+                  <br></br>
+
+                  <div className="pt-10">
+                    <fieldset>
+                      <legend className="block text-sm font-medium text-gray-900">
+                        <br></br>
+                      </legend>
+                      <div className="space-y-3 pt-6"></div>
+                    </fieldset>
+                  </div>
+                </form>
+              </aside>
+
+              <div className="lg:col-span-9">
+                <div className="flex items-center ">
+                  <div className="flex items-center">
+                    <button
+                      type="button"
+                      className="inline-block text-sm font-medium text-gray-700 lg:hidden"
+                      // onClick={() => setMobileFilterOpen(true)}
+                    >
+                      Filters
+                    </button>
+                  </div>
                 </div>
 
-                <div className="pt-10">
-                  <fieldset>
-                    <legend className="block text-sm font-medium text-gray-900">
-                      Sexo
-                    </legend>
-                    <div className="space-y-3 pt-6">
-                      {petSexo.map((name, index) => (
-                        <div className="flex items-center" key={index}>
-                          <input
-                            id={`sexo-${index}`}
-                            name="sexo[]"
-                            type="checkbox"
-                            value={name}
-                            className="h-4 w-4 rounded border-gray-300 text-indigo-600 focus:ring-indigo-500"
-                            onChange={handleFilterChange(setSelectedSexo)}
-                            checked={selectedSexo.includes(name)}
-                          />
-                          <label
-                            htmlFor={`sexo-${index}`}
-                            className="ml-3 text-sm text-gray-600"
-                          >
-                            {name}
-                          </label>
-                        </div>
-                      ))}
-                    </div>
-                  </fieldset>
-                </div>
-
-                <div className="pt-10">
-                  <fieldset>
-                    <legend className="block text-sm font-medium text-gray-900">
-                      Peso
-                    </legend>
-                    <div className="space-y-3 pt-6">
-                      {petPeso.map((name, index) => (
-                        <div className="flex items-center" key={index}>
-                          <input
-                            id={`peso-${index}`}
-                            name="peso[]"
-                            type="checkbox"
-                            value={name}
-                            className="h-4 w-4 rounded border-gray-300 text-indigo-600 focus:ring-indigo-500"
-                            onChange={handleFilterChange(setSelectedPeso)}
-                            checked={selectedPeso.includes(name)}
-                          />
-                          <label
-                            htmlFor={`peso-${index}`}
-                            className="ml-3 text-sm text-gray-600"
-                          >
-                            {name}
-                          </label>
-                        </div>
-                      ))}
-                    </div>
-                  </fieldset>
-                </div>
-
-                <div className="pt-10">
-                  <fieldset>
-                    <legend className="block text-sm font-medium text-gray-900">
-                      Tamaño
-                    </legend>
-                    <div className="space-y-3 pt-6">
-                      {petTamanio.map((name, index) => (
-                        <div className="flex items-center" key={index}>
-                          <input
-                            id={`tamanio-${index}`}
-                            name="tamanio[]"
-                            type="checkbox"
-                            value={name}
-                            className="h-4 w-4 rounded border-gray-300 text-indigo-600 focus:ring-indigo-500"
-                            onChange={handleFilterChange(setSelectedTamanio)}
-                            checked={selectedTamanio.includes(name)}
-                          />
-                          <label
-                            htmlFor={`tamanio-${index}`}
-                            className="ml-3 text-sm text-gray-600"
-                          >
-                            {name}
-                          </label>
-                        </div>
-                      ))}
-                    </div>
-                  </fieldset>
-                </div>
-              </form>
-            </aside>
-
-            <div className="lg:col-span-9">
-              <div className="flex items-center ">
-                <div className="flex items-center">
-                  <button
-                    type="button"
-                    className="inline-block text-sm font-medium text-gray-700 lg:hidden"
-                    // onClick={() => setMobileFilterOpen(true)}
-                  >
-                    Filters
-                  </button>
-                </div>
+                <section aria-labelledby="products-heading" className="pt-6">
+                  <h2 id="products-heading" className="sr-only">
+                    Products
+                  </h2>
+                  <div className="grid grid-cols-1 gap-y-10 sm:grid-cols-2 sm:gap-x-6 lg:grid-cols-3 lg:gap-x-8">
+                    {/* Product items would be mapped here */}
+                    {listTemplate(listaMascotas)}
+                  </div>
+                </section>
               </div>
-
-              <section aria-labelledby="products-heading" className="pt-6">
-                <h2 id="products-heading" className="sr-only">
-                  Products
-                </h2>
-                <div className="grid grid-cols-1 gap-y-10 sm:grid-cols-2 sm:gap-x-6 lg:grid-cols-3 lg:gap-x-8">
-                  {/* Product items would be mapped here */}
-                  {listTemplate(listaMascotas)}
-                </div>
-              </section>
             </div>
-          </div>
-        </main>
+          </main>
+        </div>
       </div>
-    </div>
+      {showFooter === true ? (
+        <div id="clever-45754-889974-sticky-footer" style={containerStyle}>
+          <img
+            id="clever-45754-889974-sticky-footer-stickyfooter-close"
+            src="https://assets.cleverwebserver.com/Close.png"
+            alt="close"
+            style={closeButtonStyle}
+            onClick={handleClose} // Agrega la función para cerrar al hacer clic
+          />
+          <div
+            id="clever-45754-889974-sticky-footer-shadow"
+            style={shadowStyle}
+          ></div>
+          <div
+            id="clever-45754-889974-sticky-footer-arrow"
+            style={arrowContainerStyle}
+          >
+            <img
+              src="https://assets.cleverwebserver.com/ArrowMinimal.png"
+              alt="arrow"
+              id="clever-45754-889974-sticky-footer-arrowimg"
+              style={arrowImageStyle}
+            />
+          </div>
+          <iframe
+            id="clever-45754-889974-sticky-footer-iframe"
+            name="clever-core-ads"
+            src="https://sender.cleverwebserver.com/group/45754?id=889974&amp;ref=aHR0cHM6Ly9lbGNvbWVyY2lvLnBlL2RlcG9ydGUtdG90YWwvY29sb21iaWEvZ29sLWNhcmFjb2wtZW4tdml2by1kb25kZS12ZXItY29sb21iaWEtdnMtYXJnZW50aW5hLWVuLXNlbmFsLWNhcmFjb2wtdHYtZ3JhdGlzLWZ1dGJvbC1saWJyZS10di1nb2wtcGxheS1vbmxpbmUtaG95LXBvci1jb3BhLWFtZXJpY2EtMjAyNC12aWRlby1jby1ub3RpY2lhLw%3D%3D&amp;ruri=aHR0cHM6Ly93d3cuZ29vZ2xlLmNvbS8%3D&amp;t=1721102391&amp;cmpId=&amp;fb=0&amp;wl=1&amp;furl=0&amp;sf=0&amp;bw=Q2hyb21l&amp;b=0&amp;m=0&amp;p=TGludXg&amp;res=1920x961&amp;app=&amp;v=2.1.8&amp;s=94b2359571d7c483df964b6fb64f01fa64d1a33d11331d44432088f33bc5ceaf&amp;bv=125&amp;cont=SA&amp;st=W&amp;sdk=&amp;iv=-1&amp;ctr=PE&amp;sz=961&amp;landing=1&amp;hei=288.30"
+            title="Clever-iframe"
+            frameBorder="0"
+            scrolling="no"
+            style={iframeStyle}
+          ></iframe>
+          <a
+            href="https://cleveradvertising.com"
+            target="_blank"
+            rel="nofollow"
+            style={{
+              color: "rgb(255, 255, 255)",
+              textDecoration: "none",
+              height: "15px",
+              padding: "0px",
+              background: "unset",
+              overflow: "unset",
+            }}
+          >
+            <img
+              id="clever-45754-889974-sticky-footer-logo"
+              src="https://assets.cleverwebserver.com/Clever.png"
+              alt="Close"
+              style={logoStyle}
+            />
+          </a>
+        </div>
+      ) : (
+        <div></div>
+      )}
+    </>
   );
 };
 

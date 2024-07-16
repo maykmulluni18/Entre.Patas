@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Adoption;
 use Illuminate\Http\Request;
 use App\Models\UserAdoptionSponsorship;
 use Illuminate\Support\Facades\Validator;
@@ -54,6 +55,7 @@ class UserAdoptionSponsorshipController extends Controller
                 'name' => $request->name,
                 'email' => $request->email,
                 'password' => Hash::make($randomPassword),
+                'user_adoption_id' => $userAdoptionSponsorship->id,
                 'type' => '2',
             ]);
 
@@ -192,11 +194,36 @@ class UserAdoptionSponsorshipController extends Controller
                 return response()->json(['message' => 'No tiene permiso para iniciar sesión.'], 403);
             }
 
+            // Crear un array con los datos del usuario
+            $userData = [
+                $user,
+                // Incluir otros datos que desees enviar
+            ];
+
             $token = $user->createToken('token')->plainTextToken;
 
-            return response()->json(['token' => $token], 201);
+            return response()->json(['token' => $token, 'user' => $userData], 201);
+
         } catch (\Exception $e) {
             return response()->json(['message' => $e->getMessage()], 422);
         }
     }
+
+    public function showAdoption($id)
+    {
+        try {
+            // Obtener la adopción con las relaciones cargadas
+            $adoption = Adoption::with(['userAdoptionSponsorship', 'pet'])->where('user_adop_spon_id', $id)->firstOrFail();
+
+            // Construir la URL completa de la imagen (si la propiedad 'imagen' existe en el modelo Pet)
+            if (isset($adoption->pet->imagen)) {
+                $adoption->pet->imagen_url = asset('storage/' . $adoption->pet->imagen);
+            }
+
+            return response()->json(['data' => $adoption], 200);
+        } catch (\Exception $e) {
+            return response()->json(['message' => $e->getMessage()], 500);
+        }
+    }
+
 }

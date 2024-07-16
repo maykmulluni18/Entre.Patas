@@ -5,8 +5,8 @@ import Swal from "sweetalert2";
 
 import {
   getIdApiMascota,
-  apiPostUserAdoption,
-  apiPostAnswer,
+  // apiPostUserAdoption,
+  // apiPostAnswer,
   getApiIdPostAnswer,
   adoptions_generate,
   postPetState,

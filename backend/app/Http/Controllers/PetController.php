@@ -235,4 +235,23 @@ class PetController extends Controller
 
     }
 
+    public function countAdoptedAndNotAdopted()
+    {
+        try {
+            // Contar las mascotas adoptadas
+            $adoptedCount = Pet::where('state', 'Adoptado')->count();
+
+            // Contar las mascotas no adoptadas
+            $notAdoptedCount = Pet::where('state', 'No Adoptado')->count();
+
+            // Devolver la respuesta en formato JSON
+            return response()->json([
+                'adopted_count' => $adoptedCount,
+                'not_adopted_count' => $notAdoptedCount
+            ], 200);
+        } catch (\Exception $e) {
+            return response()->json(['message' => $e->getMessage()], 500);
+        }
+    }
+
 }

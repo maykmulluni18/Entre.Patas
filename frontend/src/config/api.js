@@ -1,11 +1,13 @@
-const URI = "http://127.0.0.1:8000/api/";
+//const URI = "http://127.0.0.1:8000/api/";
 
-//const URI = "http://64.227.8.193:8081/api/";
+const URI = "http://64.227.8.193:8081/api/";
 //PARA VERIMAGENES
 //php artisan storage:link
 export const Api_LOGIN = URI + "login";
 
 export const apiListQuestions = URI + "questions";
+
+export const apiListCount = URI + "pets/counts";
 
 export const apiTipoMascota = URI + "tipos_mascotas";
 export const getIdApiTipoMascota = URI + "show_tipos_mascotas/";

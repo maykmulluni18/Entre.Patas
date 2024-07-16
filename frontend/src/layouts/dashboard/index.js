@@ -31,7 +31,7 @@ import SalesTable from "examples/Tables/SalesTable";
 import CategoriesList from "examples/Lists/CategoriesList";
 import GradientLineChart from "examples/Charts/LineCharts/GradientLineChart";
 
-// Argon Dashboard 2 MUI base styles
+// Argon Dashboard 2 MUI base stylesapiListCount
 import typography from "assets/theme/base/typography";
 
 // Dashboard layout components
@@ -41,74 +41,75 @@ import Slider from "layouts/dashboard/components/Slider";
 import gradientLineChartData from "layouts/dashboard/data/gradientLineChartData";
 import salesTableData from "layouts/dashboard/data/salesTableData";
 import categoriesListData from "layouts/dashboard/data/categoriesListData";
+import { apiListCount } from "config/api";
+import { useEffect, useState } from "react";
+import axios from "axios";
 
 function Default() {
+  const [data, setData] = useState("");
+
+  const getData = async () => {
+    try {
+      const response = await axios.get(apiListCount);
+      console.log(response.data);
+      setData(response.data);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+  useEffect(() => {
+    getData();
+  }, []);
   const { size } = typography;
   return (
     <DashboardLayout>
       <DashboardNavbar />
       <ArgonBox py={3}>
         <Grid container spacing={3} mb={3}>
-          <Grid item xs={12} md={6} lg={3}>
+          {/* <Grid item xs={12} md={6} lg={3}>
             <DetailedStatisticsCard
               title="today's money"
               count="$53,000"
               icon={{ color: "info", component: <i className="ni ni-money-coins" /> }}
               percentage={{ color: "success", count: "+55%", text: "since yesterday" }}
             />
-          </Grid>
+          </Grid> */}
           <Grid item xs={12} md={6} lg={3}>
             <DetailedStatisticsCard
-              title="today's users"
-              count="2,300"
+              title="Cantidad de Mascotas Adoptados"
+              count={data?.adopted_count}
               icon={{ color: "error", component: <i className="ni ni-world" /> }}
-              percentage={{ color: "success", count: "+3%", text: "since last week" }}
             />
           </Grid>
           <Grid item xs={12} md={6} lg={3}>
             <DetailedStatisticsCard
-              title="new clients"
-              count="+3,462"
+              title="Cantidad de Mascotas No Adoptados"
+              count={data?.not_adopted_count}
               icon={{ color: "success", component: <i className="ni ni-paper-diploma" /> }}
-              percentage={{ color: "error", count: "-2%", text: "since last quarter" }}
             />
           </Grid>
           <Grid item xs={12} md={6} lg={3}>
-            <DetailedStatisticsCard
+            {/* <DetailedStatisticsCard
               title="sales"
               count="$103,430"
               icon={{ color: "warning", component: <i className="ni ni-cart" /> }}
               percentage={{ color: "success", count: "+5%", text: "than last month" }}
-            />
+            /> */}
           </Grid>
         </Grid>
         <Grid container spacing={3} mb={3}>
-          <Grid item xs={12} lg={7}>
+          {/* <Grid item xs={1} lg={1}>
             <GradientLineChart
-              title="Sales Overview"
-              description={
-                <ArgonBox display="flex" alignItems="center">
-                  <ArgonBox fontSize={size.lg} color="success" mb={0.3} mr={0.5} lineHeight={0}>
-                    <Icon sx={{ fontWeight: "bold" }}>arrow_upward</Icon>
-                  </ArgonBox>
-                  <ArgonTypography variant="button" color="text" fontWeight="medium">
-                    4% more{" "}
-                    <ArgonTypography variant="button" color="text" fontWeight="regular">
-                      in 2022
-                    </ArgonTypography>
-                  </ArgonTypography>
-                </ArgonBox>
-              }
-              chart={gradientLineChartData}
+              description={<ArgonBox display="flex" alignItems="center"></ArgonBox>}
+              chart=""
             />
-          </Grid>
+          </Grid> */}
           <Grid item xs={12} lg={5}>
             <Slider />
           </Grid>
         </Grid>
-        
       </ArgonBox>
-      <Footer />
+      {/* <Footer /> */}
     </DashboardLayout>
   );
 }

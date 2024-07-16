@@ -17,13 +17,13 @@ class Adoption extends Model
         'low'
     ];
 
-    public function user_adop_spon_id()
+    public function userAdoptionSponsorship()
     {
-        return $this->belongsTo(UserAdoptionSponsorship::class);
+        return $this->belongsTo(UserAdoptionSponsorship::class, 'user_adop_spon_id');
     }
 
     public function pet()
     {
-        return $this->belongsTo(Pet::class);
+        return $this->belongsTo(Pet::class, 'pet_id');
     }
 }

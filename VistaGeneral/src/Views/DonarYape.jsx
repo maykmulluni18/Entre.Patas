@@ -1,4 +1,4 @@
-import YapeIMG from "./yape1.jpg";
+import YapeIMG from "./yape.jpeg";
 import { postDonation } from "../config/api";
 import { useState } from "react";
 import axios from "axios";
@@ -65,7 +65,7 @@ const DonarYape = () => {
               <img
                 className="px-3 md:w-3/12 lg:pr-10"
                 src={YapeIMG}
-                style={{ width: "100%", height: "100%", objectFit: "cover" }}
+                style={{ width: "35%", height: "35%", objectFit: "cover" }}
               />
               <div className="px-3 md:w-10/12">
                 <div className="w-full mx-auto rounded-lg bg-white border border-gray-200 text-gray-800 font-light mb-6">

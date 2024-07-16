@@ -1,5 +1,5 @@
-const URI = "http://127.0.0.1:8000/api/";
-//const URI = "http://64.227.8.193:8081/api/";
+//const URI = "http://127.0.0.1:8000/api/";
+const URI = "http://64.227.8.193:8081/api/";
 //PARA VERIMAGENES
 //php artisan storage:link
 export const Api_LOGIN = URI + "login";
@@ -29,6 +29,8 @@ export const postDonation = URI + "donations";
 
 export const postApiReportLoos = URI + "report_loss";
 
-export const getApiListReport = URI + "report_loss_enable"
+export const getApiListReport = URI + "report_loss_enable";
 
-export const postLoginUsers = URI + "loginUsers"
+export const postLoginUsers = URI + "loginUsers";
+
+export const getAdoption = URI + "showAdoption/";

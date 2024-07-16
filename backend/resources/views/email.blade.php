@@ -10,7 +10,6 @@
     <p>Sus credenciales de acceso son las siguientes:</p>
     <p>Email: {{ $user->email }}</p>
     <p>Contraseña: {{ $password }}</p>
-    <p>Por favor, cambie su contraseña después de iniciar sesión.</p>
 </body>
 
 </html>

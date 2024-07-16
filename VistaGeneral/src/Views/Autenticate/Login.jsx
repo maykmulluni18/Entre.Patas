@@ -17,7 +17,14 @@ const Login = () => {
       });
       console.log(response.status);
       if (response.status === 201) {
+        console.log(response);
         sessionStorage.setItem("token", response.data.token);
+        sessionStorage.setItem("usr", response.data.user);
+        sessionStorage.setItem("usr_id", response.data.user[0].user_adoption_id);
+        sessionStorage.setItem("usr_name", response.data.user[0].name);
+
+        // return response()->json(['token' => $token, 'user' => $userData], 201);
+
         // Redirige a la página principal después de logearse con éxito
         window.location.href = "/dasboard";
       }

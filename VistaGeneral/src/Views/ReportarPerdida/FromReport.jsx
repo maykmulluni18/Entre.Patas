@@ -16,7 +16,7 @@ const FromReport = () => {
   const [errors, setErrors] = useState({});
 
   const navigate = useNavigate();
-  const toast = useRef(null);
+  //const toast = useRef(null);
 
   const inputFileRef = useRef(null);
 
@@ -53,12 +53,14 @@ const FromReport = () => {
           "Content-Type": "multipart/form-data",
         },
       });
+      console.log(response.status)
       if (response.status === 201) {
-        toast.current.show({
-          severity: "info",
-          summary: "Actualizacion",
-          detail: "De Mascota",
-        });
+        console.log('ds')
+        // toast.current.show({
+        //   severity: "info",
+        //   summary: "Actualizacion",
+        //   detail: "De Mascota",
+        // });
 
         navigate("/perdida-mascota");
       }

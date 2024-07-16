@@ -102,13 +102,20 @@ Route::get('adoptions', [AdoptionController::class, 'index'])->name('adoptions.i
 //donation
 Route::get('donations', [DonationController::class, 'index'])->name('donations.index');
 Route::post('donations', [DonationController::class, 'create'])->name('donations.create');
-Route::patch('pets_cancel_adoption/{id}',[AdoptionController::class, 'cancelAdoption'])->name('pets_cancel_adoption.cancelAdoption');
-Route::patch('pets_habilitar_adoption/{id}',[AdoptionController::class, 'habilitarAdoption'])->name('pets_habilitar_adoption.habilitarAdoption');
+Route::patch('pets_cancel_adoption/{id}', [AdoptionController::class, 'cancelAdoption'])->name('pets_cancel_adoption.cancelAdoption');
+Route::patch('pets_habilitar_adoption/{id}', [AdoptionController::class, 'habilitarAdoption'])->name('pets_habilitar_adoption.habilitarAdoption');
 
 Route::post('loginUsers', [UserAdoptionSponsorshipController::class, 'loginUsers'])->name('loginUsers.loginUsers');
 
+Route::get('showAdoption/{id}', [UserAdoptionSponsorshipController::class, 'showAdoption'])->name('showAdoption.showAdoption');
+
+
+Route::get('/pets/counts', [PetController::class, 'countAdoptedAndNotAdopted']);
+
 //habilitarAdoption
 //loginUsers
+
+//showAdoption
 
 // Route::get('donations/{id}', [DonationController::class, 'show'])->name('donations.show');
 // Route::put('donations/{id}', [DonationController::class, 'update'])->name('donations.update');

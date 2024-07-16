@@ -1,8 +1,29 @@
+import axios from "axios";
+import { useEffect, useState } from "react";
+import { getAdoption } from "../../config/api";
 const Dashboard = () => {
+  const [data, setData] = useState({});
+
+  const nameUser = sessionStorage.getItem("usr_name");
+  const getData = async () => {
+    const user_id = sessionStorage.getItem("usr_id");
+    try {
+      const response = await axios.get(getAdoption + user_id);
+      if (response.status === 200) {
+        setData(response.data.data);
+      }
+    } catch (error) {
+      console.error("Error fetching data: ", error);
+    }
+  };
+
+  useEffect(() => {
+    getData();
+  }, []);
+
   const lagoutAuth = () => {
     sessionStorage.clear();
     window.location.href = "/login";
-
   };
   return (
     <>
@@ -46,10 +67,10 @@ const Dashboard = () => {
                     alt="Windster Logo"
                   />
                   <span className="self-center whitespace-nowrap">
-                    Windster
+                    Entre Patas
                   </span>
                 </a>
-                <form
+                {/* <form
                   action="#"
                   method="GET"
                   className="hidden lg:block lg:pl-32"
@@ -74,7 +95,7 @@ const Dashboard = () => {
                       placeholder="Search"
                     />
                   </div>
-                </form>
+                </form> */}
               </div>
               <div className="flex items-center">
                 <button
@@ -94,7 +115,7 @@ const Dashboard = () => {
                 </button>
                 <div className="hidden lg:flex items-center">
                   <span className="text-base font-normal text-gray-500 mr-5">
-                    Open source ❤️
+                    {nameUser} ❤️
                   </span>
                   <div className="-mb-1">
                     <a
@@ -133,6 +154,7 @@ const Dashboard = () => {
             </div>
           </div>
         </nav>
+
         <div className="flex overflow-hidden bg-white pt-16">
           <aside
             id="sidebar"
@@ -145,7 +167,7 @@ const Dashboard = () => {
                   <ul className="space-y-2 pb-2">
                     <li>
                       <form action="#" method="GET" className="lg:hidden">
-                        <label className="sr-only">Search</label>
+                        {/* <label className="sr-only">Search</label>
                         <div className="relative">
                           <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
                             <svg
@@ -163,8 +185,8 @@ const Dashboard = () => {
                             id="mobile-search"
                             className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-cyan-600 focus:ring-cyan-600 block w-full pl-10 p-2.5"
                             placeholder="Search"
-                          />
-                        </div>
+                          /> 
+                        </div>*/}
                       </form>
                     </li>
                     <li>
@@ -244,173 +266,286 @@ const Dashboard = () => {
                     <div className="flex items-center justify-between mb-4">
                       <div className="flex-shrink-0">
                         <span className="text-2xl sm:text-3xl leading-none font-bold text-gray-900">
-                          $45,385
+                          Entre Patas
                         </span>
                         <h3 className="text-base font-normal text-gray-500">
-                          Sales this week
+                          Mi Mascota Adoptada{" "}
                         </h3>
                       </div>
-                      <div className="flex items-center justify-end flex-1 text-green-500 text-base font-bold">
-                        12.5%
-                        <svg
-                          className="w-5 h-5"
-                          fill="currentColor"
-                          viewBox="0 0 20 20"
-                          xmlns="http://www.w3.org/2000/svg"
-                        >
-                          <path d="M5.293 7.707a1 1 0 010-1.414l4-4a1 1 0 011.414 0l4 4a1 1 0 01-1.414 1.414L11 5.414V17a1 1 0 11-2 0V5.414L6.707 7.707a1 1 0 01-1.414 0z"></path>
-                        </svg>
-                      </div>
+                      <div className="flex items-center justify-end text-green-500 text-base font-bold"></div>
                     </div>
-                    <div id="main-chart"></div>
+
+                    <div id="main-chart">
+                      {" "}
+                      <div className="relative flex w-full max-w-[26rem] flex-col rounded-xl bg-white bg-clip-border text-gray-700 shadow-lg">
+                        <div className="relative mx-4 mt-4 overflow-hidden rounded-xl bg-blue-gray-500 bg-clip-border text-white shadow-lg shadow-blue-gray-500/40">
+                          <img
+                            src={data.pet?.imagen_url}
+                            alt="ui/ux review check"
+                          />
+                          <div className="to-bg-black-10 absolute inset-0 h-full w-full bg-gradient-to-tr from-transparent via-transparent to-black/60"></div>
+                          <button
+                            className="!absolute top-4 right-4 h-8 max-h-[32px] w-8 max-w-[32px] select-none rounded-full text-center align-middle font-sans text-xs font-medium uppercase text-red-500 transition-all hover:bg-red-500/10 active:bg-red-500/30 disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none"
+                            type="button"
+                            data-ripple-dark="true"
+                          >
+                            <span className="absolute top-1/2 left-1/2 -translate-y-1/2 -translate-x-1/2 transform">
+                              <svg
+                                xmlns="http://www.w3.org/2000/svg"
+                                viewBox="0 0 24 24"
+                                fill="currentColor"
+                                aria-hidden="true"
+                                className="h-6 w-6"
+                              >
+                                <path d="M11.645 20.91l-.007-.003-.022-.012a15.247 15.247 0 01-.383-.218 25.18 25.18 0 01-4.244-3.17C4.688 15.36 2.25 12.174 2.25 8.25 2.25 5.322 4.714 3 7.688 3A5.5 5.5 0 0112 5.052 5.5 5.5 0 0116.313 3c2.973 0 5.437 2.322 5.437 5.25 0 3.925-2.438 7.111-4.739 9.256a25.175 25.175 0 01-4.244 3.17 15.247 15.247 0 01-.383.219l-.022.012-.007.004-.003.001a.752.752 0 01-.704 0l-.003-.001z"></path>
+                              </svg>
+                            </span>
+                          </button>
+                        </div>
+                        <div className="p-6">
+                          <div className="mb-3 flex items-center justify-between text-center">
+                            <div className="block font-sans text-xl font-medium leading-snug tracking-normal text-blue-gray-900 antialiased text-center">
+                              {data.pet?.nombre}
+                            </div>
+                            <p className="flex items-center gap-1.5 font-sans text-base font-normal leading-relaxed text-blue-gray-900 antialiased">
+                              :)
+                            </p>
+                          </div>
+                          <p className="block font-sans text-base font-light leading-relaxed text-gray-700 antialiased">
+                            <div className="block font-sans text-base font-light leading-relaxed text-gray-700 antialiased">
+                              {data.pet?.description}
+                            </div>
+                            <lu>
+                              <div className="formgrid grid lisdata">
+                                <br />
+                                <p
+                                  style={{ fontWeight: "bold" }}
+                                  className="text-center "
+                                >
+                                  {" "}
+                                  Lista de Detalles
+                                </p>
+
+                                <div className="field col-12 md:col-4">
+                                  <li>
+                                    <span style={{ fontWeight: "bold" }}>
+                                      {" "}
+                                      Color:
+                                    </span>{" "}
+                                    {data.pet?.color}
+                                  </li>
+
+                                  <li>
+                                    {" "}
+                                    <span style={{ fontWeight: "bold" }}>
+                                      Años:
+                                    </span>{" "}
+                                    {data.pet?.age}{" "}
+                                  </li>
+                                </div>
+                                <div className="field col-12 md:col-4">
+                                  <li>
+                                    {" "}
+                                    <span style={{ fontWeight: "bold" }}>
+                                      Sexo:
+                                    </span>{" "}
+                                    {data.pet?.sex}
+                                  </li>
+                                  <li>
+                                    {" "}
+                                    <span style={{ fontWeight: "bold" }}>
+                                      Tamaño:
+                                    </span>{" "}
+                                    {data.pet?.tamanio}
+                                  </li>
+                                  <li>
+                                    {" "}
+                                    <span style={{ fontWeight: "bold" }}>
+                                      Esterilizado:
+                                    </span>{" "}
+                                    {data.pet?.sterilized}
+                                  </li>
+                                  <li>
+                                    {" "}
+                                    <span style={{ fontWeight: "bold" }}>
+                                      Vacunas:
+                                    </span>{" "}
+                                    {data.pet?.vaccination}
+                                  </li>
+                                </div>
+
+                                <div className="field col-12 md:col-4">
+                                  <li>
+                                    {" "}
+                                    <span style={{ fontWeight: "bold" }}>
+                                      Estado:
+                                    </span>{" "}
+                                    state
+                                  </li>
+                                  <li>
+                                    {" "}
+                                    <span style={{ fontWeight: "bold" }}>
+                                      Fecha de Fin de Vida:
+                                    </span>{" "}
+                                    {data.pet?.dateEnd}
+                                  </li>
+                                  <li>
+                                    {" "}
+                                    <span style={{ fontWeight: "bold" }}>
+                                      Peso:
+                                    </span>{" "}
+                                    {data.pet?.peso}
+                                  </li>
+                                </div>
+                              </div>
+                            </lu>
+                          </p>
+                        </div>
+                      </div>
+                      {/* <table className="min-w-full divide-y divide-gray-200">
+                        <thead className="bg-gray-50">
+                          <tr>
+                            <th
+                              scope="col"
+                              className="p-4 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
+                            >
+                              Transaction
+                            </th>
+                            <th
+                              scope="col"
+                              className="p-4 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
+                            >
+                              Date & Time
+                            </th>
+                            <th
+                              scope="col"
+                              className="p-4 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
+                            >
+                              Amount
+                            </th>
+                          </tr>
+                        </thead>
+                        <tbody className="bg-white">
+                          <tr>
+                            <td className="p-4 whitespace-nowrap text-sm font-normal text-gray-900">
+                              Payment from{" "}
+                              <span className="font-semibold">
+                                Bonnie Green
+                              </span>
+                            </td>
+                            <td className="p-4 whitespace-nowrap text-sm font-normal text-gray-500">
+                              Apr 23 ,2021
+                            </td>
+                            <td className="p-4 whitespace-nowrap text-sm font-semibold text-gray-900">
+                              $2300
+                            </td>
+                          </tr>
+                          <tr className="bg-gray-50">
+                            <td className="p-4 whitespace-nowrap text-sm font-normal text-gray-900 rounded-lg rounded-left">
+                              Payment refund to{" "}
+                              <span className="font-semibold">#00910</span>
+                            </td>
+                            <td className="p-4 whitespace-nowrap text-sm font-normal text-gray-500">
+                              Apr 23 ,2021
+                            </td>
+                            <td className="p-4 whitespace-nowrap text-sm font-semibold text-gray-900">
+                              -$670
+                            </td>
+                          </tr>
+                          <tr>
+                            <td className="p-4 whitespace-nowrap text-sm font-normal text-gray-900">
+                              Payment failed from{" "}
+                              <span className="font-semibold">#087651</span>
+                            </td>
+                            <td className="p-4 whitespace-nowrap text-sm font-normal text-gray-500">
+                              Apr 18 ,2021
+                            </td>
+                            <td className="p-4 whitespace-nowrap text-sm font-semibold text-gray-900">
+                              $234
+                            </td>
+                          </tr>
+                          <tr className="bg-gray-50">
+                            <td className="p-4 whitespace-nowrap text-sm font-normal text-gray-900 rounded-lg rounded-left">
+                              Payment from{" "}
+                              <span className="font-semibold">Lana Byrd</span>
+                            </td>
+                            <td className="p-4 whitespace-nowrap text-sm font-normal text-gray-500">
+                              Apr 15 ,2021
+                            </td>
+                            <td className="p-4 whitespace-nowrap text-sm font-semibold text-gray-900">
+                              $5000
+                            </td>
+                          </tr>
+                          <tr>
+                            <td className="p-4 whitespace-nowrap text-sm font-normal text-gray-900">
+                              Payment from{" "}
+                              <span className="font-semibold">Jese Leos</span>
+                            </td>
+                            <td className="p-4 whitespace-nowrap text-sm font-normal text-gray-500">
+                              Apr 15 ,2021
+                            </td>
+                            <td className="p-4 whitespace-nowrap text-sm font-semibold text-gray-900">
+                              $2300
+                            </td>
+                          </tr>
+                          <tr className="bg-gray-50">
+                            <td className="p-4 whitespace-nowrap text-sm font-normal text-gray-900 rounded-lg rounded-left">
+                              Payment from{" "}
+                              <span className="font-semibold">
+                                THEMESBERG LLC
+                              </span>
+                            </td>
+                            <td className="p-4 whitespace-nowrap text-sm font-normal text-gray-500">
+                              Apr 11 ,2021
+                            </td>
+                            <td className="p-4 whitespace-nowrap text-sm font-semibold text-gray-900">
+                              $560
+                            </td>
+                          </tr>
+                          <tr>
+                            <td className="p-4 whitespace-nowrap text-sm font-normal text-gray-900">
+                              Payment from{" "}
+                              <span className="font-semibold">Lana Lysle</span>
+                            </td>
+                            <td className="p-4 whitespace-nowrap text-sm font-normal text-gray-500">
+                              Apr 6 ,2021
+                            </td>
+                            <td className="p-4 whitespace-nowrap text-sm font-semibold text-gray-900">
+                              $1437
+                            </td>
+                          </tr>
+                        </tbody>
+                      </table> */}
+                    </div>
                   </div>
                   <div className="bg-white shadow rounded-lg p-4 sm:p-6 xl:p-8 ">
                     <div className="mb-4 flex items-center justify-between">
                       <div>
                         <h3 className="text-xl font-bold text-gray-900 mb-2">
-                          Latest Transactions
+                          Agencia Entre Patas
                         </h3>
                         <span className="text-base font-normal text-gray-500">
-                          This is a list of latest transactions
+                          Acerquese en la siguiente dirección:{" "}
                         </span>
-                      </div>
-                      <div className="flex-shrink-0">
-                        <a
-                          href="#"
-                          className="text-sm font-medium text-cyan-600 hover:bg-gray-100 rounded-lg p-2"
-                        >
-                          View all
-                        </a>
                       </div>
                     </div>
                     <div className="flex flex-col mt-8">
                       <div className="overflow-x-auto rounded-lg">
                         <div className="align-middle inline-block min-w-full">
                           <div className="shadow overflow-hidden sm:rounded-lg">
-                            <table className="min-w-full divide-y divide-gray-200">
-                              <thead className="bg-gray-50">
-                                <tr>
-                                  <th
-                                    scope="col"
-                                    className="p-4 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
-                                  >
-                                    Transaction
-                                  </th>
-                                  <th
-                                    scope="col"
-                                    className="p-4 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
-                                  >
-                                    Date & Time
-                                  </th>
-                                  <th
-                                    scope="col"
-                                    className="p-4 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
-                                  >
-                                    Amount
-                                  </th>
-                                </tr>
-                              </thead>
-                              <tbody className="bg-white">
-                                <tr>
-                                  <td className="p-4 whitespace-nowrap text-sm font-normal text-gray-900">
-                                    Payment from{" "}
-                                    <span className="font-semibold">
-                                      Bonnie Green
-                                    </span>
-                                  </td>
-                                  <td className="p-4 whitespace-nowrap text-sm font-normal text-gray-500">
-                                    Apr 23 ,2021
-                                  </td>
-                                  <td className="p-4 whitespace-nowrap text-sm font-semibold text-gray-900">
-                                    $2300
-                                  </td>
-                                </tr>
-                                <tr className="bg-gray-50">
-                                  <td className="p-4 whitespace-nowrap text-sm font-normal text-gray-900 rounded-lg rounded-left">
-                                    Payment refund to{" "}
-                                    <span className="font-semibold">
-                                      #00910
-                                    </span>
-                                  </td>
-                                  <td className="p-4 whitespace-nowrap text-sm font-normal text-gray-500">
-                                    Apr 23 ,2021
-                                  </td>
-                                  <td className="p-4 whitespace-nowrap text-sm font-semibold text-gray-900">
-                                    -$670
-                                  </td>
-                                </tr>
-                                <tr>
-                                  <td className="p-4 whitespace-nowrap text-sm font-normal text-gray-900">
-                                    Payment failed from{" "}
-                                    <span className="font-semibold">
-                                      #087651
-                                    </span>
-                                  </td>
-                                  <td className="p-4 whitespace-nowrap text-sm font-normal text-gray-500">
-                                    Apr 18 ,2021
-                                  </td>
-                                  <td className="p-4 whitespace-nowrap text-sm font-semibold text-gray-900">
-                                    $234
-                                  </td>
-                                </tr>
-                                <tr className="bg-gray-50">
-                                  <td className="p-4 whitespace-nowrap text-sm font-normal text-gray-900 rounded-lg rounded-left">
-                                    Payment from{" "}
-                                    <span className="font-semibold">
-                                      Lana Byrd
-                                    </span>
-                                  </td>
-                                  <td className="p-4 whitespace-nowrap text-sm font-normal text-gray-500">
-                                    Apr 15 ,2021
-                                  </td>
-                                  <td className="p-4 whitespace-nowrap text-sm font-semibold text-gray-900">
-                                    $5000
-                                  </td>
-                                </tr>
-                                <tr>
-                                  <td className="p-4 whitespace-nowrap text-sm font-normal text-gray-900">
-                                    Payment from{" "}
-                                    <span className="font-semibold">
-                                      Jese Leos
-                                    </span>
-                                  </td>
-                                  <td className="p-4 whitespace-nowrap text-sm font-normal text-gray-500">
-                                    Apr 15 ,2021
-                                  </td>
-                                  <td className="p-4 whitespace-nowrap text-sm font-semibold text-gray-900">
-                                    $2300
-                                  </td>
-                                </tr>
-                                <tr className="bg-gray-50">
-                                  <td className="p-4 whitespace-nowrap text-sm font-normal text-gray-900 rounded-lg rounded-left">
-                                    Payment from{" "}
-                                    <span className="font-semibold">
-                                      THEMESBERG LLC
-                                    </span>
-                                  </td>
-                                  <td className="p-4 whitespace-nowrap text-sm font-normal text-gray-500">
-                                    Apr 11 ,2021
-                                  </td>
-                                  <td className="p-4 whitespace-nowrap text-sm font-semibold text-gray-900">
-                                    $560
-                                  </td>
-                                </tr>
-                                <tr>
-                                  <td className="p-4 whitespace-nowrap text-sm font-normal text-gray-900">
-                                    Payment from{" "}
-                                    <span className="font-semibold">
-                                      Lana Lysle
-                                    </span>
-                                  </td>
-                                  <td className="p-4 whitespace-nowrap text-sm font-normal text-gray-500">
-                                    Apr 6 ,2021
-                                  </td>
-                                  <td className="p-4 whitespace-nowrap text-sm font-semibold text-gray-900">
-                                    $1437
-                                  </td>
-                                </tr>
-                              </tbody>
-                            </table>
+                            <div className="my-10 lg:w-[100%] md:h-[14rem] xs:w-full xs:h-[20rem]">
+                              <h1 className="w-fit font-serif my-4 pb-1 pr-2 rounded-b-md border-b-4 border-blue-600 dark:border-b-4 dark:border-yellow-600 dark:text-white lg:text-4xl md:text-3xl xs:text-xl"></h1>
+
+                              <iframe
+                                src="https://www.google.com/maps/place/Albergue+Entre+Patas/@-15.4957879,-70.1249548,17z/data=!3m1!4b1!4m6!3m5!1s0x9167f3c562b2d60f:0xce06f72bc7b0fcab!8m2!3d-15.4957931!4d-70.1223745!16s%2Fg%2F11j01bwpp_?entry=ttu"
+                                className="rounded-lg w-full h-full"
+                                style={{ border: 0 }}
+                                allowFullScreen={true}
+                                loading="lazy"
+                                allowfullscreen
+                                title="Google Maps - Albergue Entre Patas"
+                              ></iframe>
+                            </div>
                           </div>
                         </div>
                       </div>
